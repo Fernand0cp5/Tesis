@@ -1,0 +1,5 @@
+cd Desktop
+cd Tesis
+git add .
+git commit -am "Primer cambio"
+git push
