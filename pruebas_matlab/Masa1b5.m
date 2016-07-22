@@ -1,0 +1,35 @@
+function Salida=Masa1b5(Entrada)
+Gs5=Entrada(1);
+p=Entrada(2);
+Smd=Entrada(3);
+ma1=Entrada(4);
+mb1=Entrada(5);
+mc1=Entrada(6);
+md1=Entrada(7);
+me1=Entrada(8);
+mf1=Entrada(9);
+mg1=Entrada(10);
+mh1=Entrada(11);
+mi1=Entrada(12);
+mj1=Entrada(13);
+mk1=Entrada(14);
+ml1=Entrada(15);
+mm1=Entrada(16);
+load('Gs6.mat','Gs6');
+load('fipHPGR.mat','fipHPGR');
+load('NB.mat','NB');
+ma1 = Gs6*fipHPGR(1)/NB-Gs5*p(1,1)/NB-ma1*Smd(1,1);
+mb1 = Gs6*fipHPGR(2)/NB-Gs5*p(2,1)/NB+ma1*b(2,1)*Smd(1,1)-mb1*Smd(2,1);
+mc1 = Gs6*fipHPGR(3)/NB-Gs5*p(3,1)/NB+ma1*b(3,1)*Smd(1,1)+mb1*b(3,2)*Smd(2,1)-mc1*Smd(3,1);
+md1 = Gs6*fipHPGR(4)/NB-Gs5*p(4,1)/NB+ma1*b(4,1)*Smd(1,1)+mb1*b(4,2)*Smd(2,1)+mc1*b(4,3)*Smd(3,1)-md1*Smd(4,1);
+me1 = Gs6*fipHPGR(5)/NB-Gs5*p(5,1)/NB+ma1*b(5,1)*Smd(1,1)+mb1*b(5,2)*Smd(2,1)+mc1*b(5,3)*Smd(3,1)+md1*b(5,4)*Smd(4,1)-me1*Smd(5,1);
+mf1 = Gs6*fipHPGR(6)/NB-Gs5*p(6,1)/NB+ma1*b(6,1)*Smd(1,1)+mb1*b(6,2)*Smd(2,1)+mc1*b(6,3)*Smd(3,1)+md1*b(6,4)*Smd(4,1)+me1*b(6,5)*Smd(5,1)-mf1*Smd(6,1);
+mg1 = Gs6*fipHPGR(7)/NB-Gs5*p(7,1)/NB+ma1*b(7,1)*Smd(1,1)+mb1*b(7,2)*Smd(2,1)+mc1*b(7,3)*Smd(3,1)+md1*b(7,4)*Smd(4,1)+me1*b(7,5)*Smd(5,1)+mf1*b(7,6)*Smd(6,1)-mg1*Smd(7,1);
+mh1 = Gs6*fipHPGR(8)/NB-Gs5*p(8,1)/NB+ma1*b(8,1)*Smd(1,1)+mb1*b(8,2)*Smd(2,1)+mc1*b(8,3)*Smd(3,1)+md1*b(8,4)*Smd(4,1)+me1*b(8,5)*Smd(5,1)+mf1*b(8,6)*Smd(6,1)+mg1*b(8,7)*Smd(7,1)-mh1*Smd(8,1);
+mi1 = Gs6*fipHPGR(9)/NB-Gs5*p(9,1)/NB+ma1*b(9,1)*Smd(1,1)+mb1*b(9,2)*Smd(2,1)+mc1*b(9,3)*Smd(3,1)+md1*b(9,4)*Smd(4,1)+me1*b(9,5)*Smd(5,1)+mf1*b(9,6)*Smd(6,1)+mg1*b(9,7)*Smd(7,1)+mh1*b(9,8)*Smd(8,1)-mi1*Smd(9,1);
+mj1 = Gs6*fipHPGR(10)/NB-Gs5*p(10,1)/NB+ma1*b(10,1)*Smd(1,1)+mb1*b(10,2)*Smd(2,1)+mc1*b(10,3)*Smd(3,1)+md1*b(10,4)*Smd(4,1)+me1*b(10,5)*Smd(5,1)+mf1*b(10,6)*Smd(6,1)+mg1*b(10,7)*Smd(7,1)+mh1*b(10,8)*Smd(8,1)+mi1*b(10,9)*Smd(9,1)-mj1*Smd(10,1);
+mk1 = Gs6*fipHPGR(11)/NB-Gs5*p(11,1)/NB+ma1*b(11,1)*Smd(1,1)+mb1*b(11,2)*Smd(2,1)+mc1*b(11,3)*Smd(3,1)+md1*b(11,4)*Smd(4,1)+me1*b(11,5)*Smd(5,1)+mf1*b(11,6)*Smd(6,1)+mg1*b(11,7)*Smd(7,1)+mh1*b(11,8)*Smd(8,1)+mi1*b(11,9)*Smd(9,1)+mj1*b(11,10)*Smd(10,1)-mk1*Smd(11,1);
+ml1 = Gs6*fipHPGR(12)/NB-Gs5*p(12,1)/NB+ma1*b(12,1)*Smd(1,1)+mb1*b(12,2)*Smd(2,1)+mc1*b(12,3)*Smd(3,1)+md1*b(12,4)*Smd(4,1)+me1*b(12,5)*Smd(5,1)+mf1*b(12,6)*Smd(6,1)+mg1*b(12,7)*Smd(7,1)+mh1*b(12,8)*Smd(8,1)+mi1*b(12,9)*Smd(9,1)+mj1*b(12,10)*Smd(10,1)+mk1*b(12,11)*Smd(11,1)-ml1*Smd(12,1);
+mm1 = Gs6*fipHPGR(13)/NB-Gs5*p(13,1)/NB+ma1*b(13,1)*Smd(1,1)+mb1*b(13,2)*Smd(2,1)+mc1*b(13,3)*Smd(3,1)+md1*b(13,4)*Smd(4,1)+me1*b(13,5)*Smd(5,1)+mf1*b(13,6)*Smd(6,1)+mg1*b(13,7)*Smd(7,1)+mh1*b(13,8)*Smd(8,1)+mi1*b(13,9)*Smd(9,1)+mj1*b(13,10)*Smd(10,1)+mk1*b(13,11)*Smd(11,1)+ml1*b(13,12)*Smd(12,1)+0*mm1;
+Salida=[ma1,mb1,mc1,md1,me1,mf1,mg1,mh1,mi1,mj1,mk1,ml1,mm1]';
+end

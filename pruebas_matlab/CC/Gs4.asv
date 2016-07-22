@@ -1,0 +1,10 @@
+function Salida=Gs4(Entrada)
+D=Entrada(1);
+L=Entrada(2);
+s0=Entrada(3);
+U=Entrada(4);
+Gs5=Entrada(5);
+rocm5=Entrada(6);
+load('vol4.mat','vol4');
+Salida=[D,L];
+end     

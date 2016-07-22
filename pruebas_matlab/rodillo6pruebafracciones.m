@@ -1,0 +1,409 @@
+function rodillo6pruebafracciones
+%delta = 1e-23;
+%tiemporango= [0 4000];
+valoresiniciales=[2; 2; 2; 2; 2;...
+                  4.7411e-6; 4.7411e-6; 4.7411e-6; 4.7411e-6; 4.7411e-6; 4.7411e-6; 4.7411e-6; 4.7411e-6; 4.7411e-6; 4.7411e-6; 4.7411e-6; 4.7411e-6; 4.7411e-6;...
+                  4.2377e-6; 4.2377e-6; 4.2377e-6; 4.2377e-6; 4.2377e-6; 4.2377e-6; 4.2377e-6; 4.2377e-6; 4.2377e-6; 4.2377e-6; 4.2377e-6; 4.2377e-6; 4.2377e-6;...
+                  3.8612e-6; 3.8612e-6; 3.8612e-6; 3.8612e-6; 3.8612e-6; 3.8612e-6; 3.8612e-6; 3.8612e-6; 3.8612e-6; 3.8612e-6; 3.8612e-6; 3.8612e-6; 3.8612e-6;...
+                  3.6108e-6; 3.6108e-6; 3.6108e-6; 3.6108e-6; 3.6108e-6; 3.6108e-6; 3.6108e-6; 3.6108e-6; 3.6108e-6; 3.6108e-6; 3.6108e-6; 3.6108e-6; 3.6108e-6;...
+                  3.4857e-6; 3.4857e-6; 3.4857e-6; 3.4857e-6; 3.4857e-6; 3.4857e-6; 3.4857e-6; 3.4857e-6; 3.4857e-6; 3.4857e-6; 3.4857e-6; 3.4857e-6; 3.4857e-6]; %valores iniciales para densidad 
+%options = odeset('RelTol',eps);
+[t,d]=ode1(@rodos,0,1000, valoresiniciales,1);
+figure(1)
+plot(t,d(1),t,d(2),t,d(3),t,d(4),t,d(5)), hold on;
+xlabel('Tiempo [s]')
+ylabel('Densidad [ton/cm^3]')
+legend('rocm1','rocm2','rocm3','rocm4','rocm5')
+%figure(2)
+%plot(t,d(6),t,d(7),t,d(8),t,d(9),t,d(10),t,d(11),t,d(12),...
+     %t,d(13),t,d(14),t,d(15),t,d(16),t,d(17),t,d(18)),hold on;
+end
+
+function vectorode =rodos(t, vectorvariablesdep)
+load('vol1.mat','vol1');
+load('vol2.mat','vol2');
+load('vol3.mat','vol3');
+load('vol4.mat','vol4');
+load('vol5.mat','vol5');
+load('L.mat','L');
+load('s0.mat','s0');
+load('D.mat','D');
+load('U.mat','U');
+load('n.mat','n');
+load('NB.mat','NB');
+load('Ppb.mat','Ppb');
+load('SiE.mat','SiE');
+load('fipHPGR.mat','fipHPGR');
+load('b.mat','b');
+load('h.mat','h');
+load('Xt.mat','Xt');
+%definicion de variables dependientes
+rocm1=vectorvariablesdep(1);
+rocm2=vectorvariablesdep(2);
+rocm3=vectorvariablesdep(3);
+rocm4=vectorvariablesdep(4);
+rocm5=vectorvariablesdep(5);
+ma1=vectorvariablesdep(6);
+mb1=vectorvariablesdep(7);
+mc1=vectorvariablesdep(8);
+md1=vectorvariablesdep(9);
+me1=vectorvariablesdep(10);
+mf1=vectorvariablesdep(11);
+mg1=vectorvariablesdep(12);
+mh1=vectorvariablesdep(13);
+mi1=vectorvariablesdep(14);
+mj1=vectorvariablesdep(15);
+mk1=vectorvariablesdep(16);
+ml1=vectorvariablesdep(17);
+mm1=vectorvariablesdep(18);
+ma2=vectorvariablesdep(19);
+mb2=vectorvariablesdep(20);
+mc2=vectorvariablesdep(21);
+md2=vectorvariablesdep(22);
+me2=vectorvariablesdep(23);
+mf2=vectorvariablesdep(24);
+mg2=vectorvariablesdep(25);
+mh2=vectorvariablesdep(26);
+mi2=vectorvariablesdep(27);
+mj2=vectorvariablesdep(28);
+mk2=vectorvariablesdep(29);
+ml2=vectorvariablesdep(30);
+mm2=vectorvariablesdep(31);
+ma3=vectorvariablesdep(32);
+mb3=vectorvariablesdep(33);
+mc3=vectorvariablesdep(34);
+md3=vectorvariablesdep(35);
+me3=vectorvariablesdep(36);
+mf3=vectorvariablesdep(37);
+mg3=vectorvariablesdep(38);
+mh3=vectorvariablesdep(39);
+mi3=vectorvariablesdep(40);
+mj3=vectorvariablesdep(41);
+mk3=vectorvariablesdep(42);
+ml3=vectorvariablesdep(43);
+mm3=vectorvariablesdep(44);
+ma4=vectorvariablesdep(45);
+mb4=vectorvariablesdep(46);
+mc4=vectorvariablesdep(47);
+md4=vectorvariablesdep(48);
+me4=vectorvariablesdep(49);
+mf4=vectorvariablesdep(50);
+mg4=vectorvariablesdep(51);
+mh4=vectorvariablesdep(52);
+mi4=vectorvariablesdep(53);
+mj4=vectorvariablesdep(54);
+mk4=vectorvariablesdep(55);
+ml4=vectorvariablesdep(56);
+mm4=vectorvariablesdep(57);
+ma5=vectorvariablesdep(58);
+mb5=vectorvariablesdep(59);
+mc5=vectorvariablesdep(60);
+md5=vectorvariablesdep(61);
+me5=vectorvariablesdep(62);
+mf5=vectorvariablesdep(63);
+mg5=vectorvariablesdep(64);
+mh5=vectorvariablesdep(65);
+mi5=vectorvariablesdep(66);
+mj5=vectorvariablesdep(67);
+mk5=vectorvariablesdep(68);
+ml5=vectorvariablesdep(69);
+mm5=vectorvariablesdep(70);
+%****************Bloque horizontal 1***************************************
+%if t==0
+Hkb1 = ma1+mb1+mc1+md1+me1+mf1+mg1+mh1+mi1+mj1+mk1+ml1+mm1;
+%end
+%velocidad específica de fractura para cada tamaño en cada bloque: S(i,k)
+for i = 1:n;
+    for k = 1:NB;
+        S(i,k) = (Ppb(k)/Hkb1)*SiE(i)/3600; %S(i,k) en [1/s]
+    end
+end
+%Granulometria
+fa1 = ma1/Hkb1;
+fb1 = mb1/Hkb1;
+fc1 = mc1/Hkb1;
+fd1 = md1/Hkb1;
+fe1 = me1/Hkb1;
+ff1 = mf1/Hkb1;
+fg1 = mg1/Hkb1;
+fh1 = mh1/Hkb1;
+fi1 = mi1/Hkb1;
+fj1 = mj1/Hkb1;
+fk1 = mk1/Hkb1;
+fl1 = ml1/Hkb1;
+fm1 = mm1/Hkb1;
+fptHPGRu = [fa1 fb1 fc1 fd1 fe1 ff1 fg1 fh1 fi1 fj1 fk1 fl1 fm1]
+for i = 1;
+    fptHPGRu(i) = 1;
+end
+fptHPGRu(1:n) = fptHPGRu(1:n)*100;
+%Conversion de S a [1/h]
+Smd = S*3600; 
+%**************************************************************************
+
+%****************Bloque horizontal 2***************************************
+Hkb2 = ma2+mb2+mc2+md2+me2+mf2+mg2+mh2+mi2+mj2+mk2+ml2+mm2;
+%velocidad específica de fractura para cada tamaño en cada bloque: S(i,k)
+for i = 1:n;
+    for k = 1:NB;
+        S2(i,k) = (Ppb(k)/Hkb2)*SiE(i)/3600; %S(i,k) en [1/s]
+    end
+end
+%Granulometria
+fa2 = ma2/Hkb2;
+fb2 = mb2/Hkb2;
+fc2 = mc2/Hkb2;
+fd2 = md2/Hkb2;
+fe2 = me2/Hkb2;
+ff2 = mf2/Hkb2;
+fg2 = mg2/Hkb2;
+fh2 = mh2/Hkb2;
+fi2 = mi2/Hkb2;
+fj2 = mj2/Hkb2;
+fk2 = mk2/Hkb2;
+fl2 = ml2/Hkb2;
+fm2 = mm2/Hkb2;
+fptHPGRu2 = [fa2 fb2 fc2 fd2 fe2 ff2 fg2 fh2 fi2 fj2 fk2 fl2 fm2]
+for i = 1;
+    fptHPGRu2(i) = 1;
+end
+fptHPGRu2(1:n) = fptHPGRu2(1:n)*100;
+%Conversion de S a [1/h]
+Smd2 = S2*3600; 
+%**************************************************************************
+
+%****************Bloque horizontal 3***************************************
+Hkb3 = ma3+mb3+mc3+md3+me3+mf3+mg3+mh3+mi3+mj3+mk3+ml3+mm3;
+%velocidad específica de fractura para cada tamaño en cada bloque: S(i,k)
+for i = 1:n;
+    for k = 1:NB;
+        S3(i,k) = (Ppb(k)/Hkb3)*SiE(i)/3600; %S(i,k) en [1/s]
+    end
+end
+%Granulometria
+fa3 = ma3/Hkb3;
+fb3 = mb3/Hkb3;
+fc3 = mc3/Hkb3;
+fd3 = md3/Hkb3;
+fe3 = me3/Hkb3;
+ff3 = mf3/Hkb3;
+fg3 = mg3/Hkb3;
+fh3 = mh3/Hkb3;
+fi3 = mi3/Hkb3;
+fj3 = mj3/Hkb3;
+fk3 = mk3/Hkb3;
+fl3 = ml3/Hkb3;
+fm3 = mm3/Hkb3;
+fptHPGRu3 = [fa3 fb3 fc3 fd3 fe3 ff3 fg3 fh3 fi3 fj3 fk3 fl3 fm3]
+for i = 1;
+    fptHPGRu3(i) = 1;
+end
+fptHPGRu3(1:n) = fptHPGRu3(1:n)*100;
+%Conversion de S a [1/h]
+Smd3 = S3*3600; 
+%**************************************************************************
+
+%****************Bloque horizontal 4***************************************
+Hkb4 = ma4+mb4+mc4+md4+me4+mf4+mg4+mh4+mi4+mj4+mk4+ml4+mm4;
+%velocidad específica de fractura para cada tamaño en cada bloque: S(i,k)
+for i = 1:n;
+    for k = 1:NB;
+        S4(i,k) = (Ppb(k)/Hkb4)*SiE(i)/3600; %S(i,k) en [1/s]
+    end
+end
+%Granulometria
+fa4 = ma4/Hkb4;
+fb4 = mb4/Hkb4;
+fc4 = mc4/Hkb4;
+fd4 = md4/Hkb4;
+fe4 = me4/Hkb4;
+ff4 = mf4/Hkb4;
+fg4 = mg4/Hkb4;
+fh4 = mh4/Hkb4;
+fi4 = mi4/Hkb4;
+fj4 = mj4/Hkb4;
+fk4 = mk4/Hkb4;
+fl4 = ml4/Hkb4;
+fm4 = mm4/Hkb4;
+fptHPGRu4 = [fa4 fb4 fc4 fd4 fe4 ff4 fg4 fh4 fi4 fj4 fk4 fl4 fm4]
+for i = 1;
+    fptHPGRu4(i) = 1;
+end
+fptHPGRu4(1:n) = fptHPGRu4(1:n)*100;
+%Conversion de S a [1/h]
+Smd4 = S4*3600; 
+%**************************************************************************
+
+%****************Bloque horizontal 5***************************************
+Hkb5 = ma5+mb5+mc5+md5+me5+mf5+mg5+mh5+mi5+mj5+mk5+ml5+mm5;
+%velocidad específica de fractura para cada tamaño en cada bloque: S(i,k)
+for i = 1:n;
+    for k = 1:NB;
+        S5(i,k) = (Ppb(k)/Hkb5)*SiE(i)/3600; %S(i,k) en [1/s]
+    end
+end
+%Granulometria
+fa5 = ma5/Hkb5;
+fb5 = mb5/Hkb5;
+fc5 = mc5/Hkb5;
+fd5 = md5/Hkb5;
+fe5 = me5/Hkb5;
+ff5 = mf5/Hkb5;
+fg5 = mg5/Hkb5;
+fh5 = mh5/Hkb5;
+fi5 = mi5/Hkb5;
+fj5 = mj5/Hkb5;
+fk5 = mk5/Hkb5;
+fl5 = ml5/Hkb5;
+fm5 = mm5/Hkb5;
+fptHPGRu5 = [fa5 fb5 fc5 fd5 fe5 ff5 fg5 fh5 fi5 fj5 fk5 fl5 fm5]
+for i = 1;
+    fptHPGRu5(i) = 1;
+end
+fptHPGRu5(1:n) = fptHPGRu5(1:n)*100;
+%Conversion de S a [1/h]
+Smd5 = S5*3600; 
+%**************************************************************************
+
+%******************Parámetros Gs(i)****************************************
+%Angulo del centro de masa del bloque
+alfacm1=acos((rocm1*(D+s0)-rocm1*s0)/(rocm1*D));
+alfacm2=acos((rocm2*(D+s0)-rocm1*s0)/(rocm2*D));
+alfacm3=acos((rocm3*(D+s0)-rocm1*s0)/(rocm3*D));
+alfacm4=acos((rocm4*(D+s0)-rocm1*s0)/(rocm4*D));
+alfacm5=acos((rocm5*(D+s0)-rocm1*s0)/(rocm5*D));
+%Area perpendicular al flujo masico
+A1=L*(s0+D*(1-cos(alfacm1)));
+A2=L*(s0+D*(1-cos(alfacm2)));
+A3=L*(s0+D*(1-cos(alfacm3)));
+A4=L*(s0+D*(1-cos(alfacm4)));
+A5=L*(s0+D*(1-cos(alfacm5)));
+%Velocidad de la franja de materal
+V1=U*cos(alfacm1);
+V2=U*cos(alfacm2);
+V3=U*cos(alfacm3);
+V4=U*cos(alfacm4);
+V5=U*cos(alfacm5);
+Gs6=26.683353; 
+Gs5=3600*V5*A5*rocm5;
+Gs4=3600*V4*A4*rocm4;
+Gs3=3600*V3*A3*rocm3;
+Gs2=3600*V2*A2*rocm2;
+Gs1=3600*V1*A1*rocm1;
+%definicion ecuaciones diferenciales
+drocm1dt= (Gs2-Gs1)/vol1;
+drocm2dt= (Gs6-Gs2)/vol2;
+drocm3dt= (Gs4-Gs3)/vol3;
+drocm4dt= (Gs5-Gs4)/vol4;
+drocm5dt= (Gs6-Gs5)/vol5;
+%**************************************************************************
+
+%for i=1:NB
+%Bloque 1
+dma1dt = Gs6*fipHPGR(1)/NB-Gs5*fa1/NB-ma1*Smd(1,1);
+dmb1dt = Gs6*fipHPGR(2)/NB-Gs5*fb1/NB+ma1*b(2,1)*Smd(1,1)-mb1*Smd(2,1);
+dmc1dt = Gs6*fipHPGR(3)/NB-Gs5*fc1/NB+ma1*b(3,1)*Smd(1,1)+mb1*b(3,2)*Smd(2,1)-mc1*Smd(3,1);
+dmd1dt = Gs6*fipHPGR(4)/NB-Gs5*fd1/NB+ma1*b(4,1)*Smd(1,1)+mb1*b(4,2)*Smd(2,1)+mc1*b(4,3)*Smd(3,1)-md1*Smd(4,1);
+dme1dt = Gs6*fipHPGR(5)/NB-Gs5*fe1/NB+ma1*b(5,1)*Smd(1,1)+mb1*b(5,2)*Smd(2,1)+mc1*b(5,3)*Smd(3,1)+md1*b(5,4)*Smd(4,1)-me1*Smd(5,1);
+dmf1dt = Gs6*fipHPGR(6)/NB-Gs5*ff1/NB+ma1*b(6,1)*Smd(1,1)+mb1*b(6,2)*Smd(2,1)+mc1*b(6,3)*Smd(3,1)+md1*b(6,4)*Smd(4,1)+me1*b(6,5)*Smd(5,1)-mf1*Smd(6,1);
+dmg1dt = Gs6*fipHPGR(7)/NB-Gs5*fg1/NB+ma1*b(7,1)*Smd(1,1)+mb1*b(7,2)*Smd(2,1)+mc1*b(7,3)*Smd(3,1)+md1*b(7,4)*Smd(4,1)+me1*b(7,5)*Smd(5,1)+mf1*b(7,6)*Smd(6,1)-mg1*Smd(7,1);
+dmh1dt = Gs6*fipHPGR(8)/NB-Gs5*fh1/NB+ma1*b(8,1)*Smd(1,1)+mb1*b(8,2)*Smd(2,1)+mc1*b(8,3)*Smd(3,1)+md1*b(8,4)*Smd(4,1)+me1*b(8,5)*Smd(5,1)+mf1*b(8,6)*Smd(6,1)+mg1*b(8,7)*Smd(7,1)-mh1*Smd(8,1);
+dmi1dt = Gs6*fipHPGR(9)/NB-Gs5*fi1/NB+ma1*b(9,1)*Smd(1,1)+mb1*b(9,2)*Smd(2,1)+mc1*b(9,3)*Smd(3,1)+md1*b(9,4)*Smd(4,1)+me1*b(9,5)*Smd(5,1)+mf1*b(9,6)*Smd(6,1)+mg1*b(9,7)*Smd(7,1)+mh1*b(9,8)*Smd(8,1)-mi1*Smd(9,1);
+dmj1dt = Gs6*fipHPGR(10)/NB-Gs5*fj1/NB+ma1*b(10,1)*Smd(1,1)+mb1*b(10,2)*Smd(2,1)+mc1*b(10,3)*Smd(3,1)+md1*b(10,4)*Smd(4,1)+me1*b(10,5)*Smd(5,1)+mf1*b(10,6)*Smd(6,1)+mg1*b(10,7)*Smd(7,1)+mh1*b(10,8)*Smd(8,1)+mi1*b(10,9)*Smd(9,1)-mj1*Smd(10,1);
+dmk1dt = Gs6*fipHPGR(11)/NB-Gs5*fk1/NB+ma1*b(11,1)*Smd(1,1)+mb1*b(11,2)*Smd(2,1)+mc1*b(11,3)*Smd(3,1)+md1*b(11,4)*Smd(4,1)+me1*b(11,5)*Smd(5,1)+mf1*b(11,6)*Smd(6,1)+mg1*b(11,7)*Smd(7,1)+mh1*b(11,8)*Smd(8,1)+mi1*b(11,9)*Smd(9,1)+mj1*b(11,10)*Smd(10,1)-mk1*Smd(11,1);
+dml1dt = Gs6*fipHPGR(12)/NB-Gs5*fl1/NB+ma1*b(12,1)*Smd(1,1)+mb1*b(12,2)*Smd(2,1)+mc1*b(12,3)*Smd(3,1)+md1*b(12,4)*Smd(4,1)+me1*b(12,5)*Smd(5,1)+mf1*b(12,6)*Smd(6,1)+mg1*b(12,7)*Smd(7,1)+mh1*b(12,8)*Smd(8,1)+mi1*b(12,9)*Smd(9,1)+mj1*b(12,10)*Smd(10,1)+mk1*b(12,11)*Smd(11,1)-ml1*Smd(12,1);
+dmm1dt = Gs6*fipHPGR(13)/NB-Gs5*fm1/NB+ma1*b(13,1)*Smd(1,1)+mb1*b(13,2)*Smd(2,1)+mc1*b(13,3)*Smd(3,1)+md1*b(13,4)*Smd(4,1)+me1*b(13,5)*Smd(5,1)+mf1*b(13,6)*Smd(6,1)+mg1*b(13,7)*Smd(7,1)+mh1*b(13,8)*Smd(8,1)+mi1*b(13,9)*Smd(9,1)+mj1*b(13,10)*Smd(10,1)+mk1*b(13,11)*Smd(11,1)+ml1*b(13,12)*Smd(12,1)+0*mm1;
+%Bloque 2
+dma2dt = Gs5*fa1/NB-Gs4*fa2/NB-ma2*Smd2(1,1);
+dmb2dt = Gs5*fb1/NB-Gs4*fb2/NB+ma2*b(2,1)*Smd2(1,1)-mb2*Smd2(2,1);
+dmc2dt = Gs5*fc1/NB-Gs4*fc2/NB+ma2*b(3,1)*Smd2(1,1)+mb2*b(3,2)*Smd2(2,1)-mc2*Smd2(3,1);
+dmd2dt = Gs5*fd1/NB-Gs4*fd2/NB+ma2*b(4,1)*Smd2(1,1)+mb2*b(4,2)*Smd2(2,1)+mc2*b(4,3)*Smd2(3,1)-md2*Smd2(4,1);
+dme2dt = Gs5*fe1/NB-Gs4*fe2/NB+ma2*b(5,1)*Smd2(1,1)+mb2*b(5,2)*Smd2(2,1)+mc2*b(5,3)*Smd2(3,1)+md2*b(5,4)*Smd2(4,1)-me2*Smd2(5,1);
+dmf2dt = Gs5*ff1/NB-Gs4*ff2/NB+ma2*b(6,1)*Smd2(1,1)+mb2*b(6,2)*Smd2(2,1)+mc2*b(6,3)*Smd2(3,1)+md2*b(6,4)*Smd2(4,1)+me2*b(6,5)*Smd2(5,1)-mf2*Smd2(6,1);
+dmg2dt = Gs5*fg1/NB-Gs4*fg2/NB+ma2*b(7,1)*Smd2(1,1)+mb2*b(7,2)*Smd2(2,1)+mc2*b(7,3)*Smd2(3,1)+md2*b(7,4)*Smd2(4,1)+me2*b(7,5)*Smd2(5,1)+mf2*b(7,6)*Smd2(6,1)-mg2*Smd2(7,1);
+dmh2dt = Gs5*fh1/NB-Gs4*fh2/NB+ma2*b(8,1)*Smd2(1,1)+mb2*b(8,2)*Smd2(2,1)+mc2*b(8,3)*Smd2(3,1)+md2*b(8,4)*Smd2(4,1)+me2*b(8,5)*Smd2(5,1)+mf2*b(8,6)*Smd2(6,1)+mg2*b(8,7)*Smd2(7,1)-mh2*Smd2(8,1);
+dmi2dt = Gs5*fi1/NB-Gs4*fi2/NB+ma2*b(9,1)*Smd2(1,1)+mb2*b(9,2)*Smd2(2,1)+mc2*b(9,3)*Smd2(3,1)+md2*b(9,4)*Smd2(4,1)+me2*b(9,5)*Smd2(5,1)+mf2*b(9,6)*Smd2(6,1)+mg2*b(9,7)*Smd2(7,1)+mh2*b(9,8)*Smd2(8,1)-mi2*Smd2(9,1);
+dmj2dt = Gs5*fj1/NB-Gs4*fj2/NB+ma2*b(10,1)*Smd2(1,1)+mb2*b(10,2)*Smd2(2,1)+mc2*b(10,3)*Smd2(3,1)+md2*b(10,4)*Smd2(4,1)+me2*b(10,5)*Smd2(5,1)+mf2*b(10,6)*Smd2(6,1)+mg2*b(10,7)*Smd2(7,1)+mh2*b(10,8)*Smd2(8,1)+mi2*b(10,9)*Smd2(9,1)-mj2*Smd2(10,1);
+dmk2dt = Gs5*fk1/NB-Gs4*fk2/NB+ma2*b(11,1)*Smd2(1,1)+mb2*b(11,2)*Smd2(2,1)+mc2*b(11,3)*Smd2(3,1)+md2*b(11,4)*Smd2(4,1)+me2*b(11,5)*Smd2(5,1)+mf2*b(11,6)*Smd2(6,1)+mg2*b(11,7)*Smd2(7,1)+mh2*b(11,8)*Smd2(8,1)+mi2*b(11,9)*Smd2(9,1)+mj2*b(11,10)*Smd2(10,1)-mk2*Smd2(11,1);
+dml2dt = Gs5*fl1/NB-Gs4*fl2/NB+ma2*b(12,1)*Smd2(1,1)+mb2*b(12,2)*Smd2(2,1)+mc2*b(12,3)*Smd2(3,1)+md2*b(12,4)*Smd2(4,1)+me2*b(12,5)*Smd2(5,1)+mf2*b(12,6)*Smd2(6,1)+mg2*b(12,7)*Smd2(7,1)+mh2*b(12,8)*Smd2(8,1)+mi2*b(12,9)*Smd2(9,1)+mj2*b(12,10)*Smd2(10,1)+mk2*b(12,11)*Smd2(11,1)-ml2*Smd2(12,1);
+dmm2dt = Gs5*fm1/NB-Gs4*fm2/NB+ma2*b(13,1)*Smd2(1,1)+mb2*b(13,2)*Smd2(2,1)+mc2*b(13,3)*Smd2(3,1)+md2*b(13,4)*Smd2(4,1)+me2*b(13,5)*Smd2(5,1)+mf2*b(13,6)*Smd2(6,1)+mg2*b(13,7)*Smd2(7,1)+mh2*b(13,8)*Smd2(8,1)+mi2*b(13,9)*Smd2(9,1)+mj2*b(13,10)*Smd2(10,1)+mk2*b(13,11)*Smd2(11,1)+ml2*b(13,12)*Smd2(12,1)+0*mm2;
+%Bloque 3
+dma3dt = Gs4*ma2/NB-Gs3*ma3/NB-ma3*Smd3(1,1);
+dmb3dt = Gs4*mb2/NB-Gs3*mb3/NB+ma3*b(2,1)*Smd3(1,1)-mb3*Smd3(2,1);
+dmc3dt = Gs4*mc2/NB-Gs3*mc3/NB+ma3*b(3,1)*Smd3(1,1)+mb3*b(3,2)*Smd3(2,1)-mc3*Smd3(3,1);
+dmd3dt = Gs4*md2/NB-Gs3*md3/NB+ma3*b(4,1)*Smd3(1,1)+mb3*b(4,2)*Smd3(2,1)+mc3*b(4,3)*Smd3(3,1)-md3*Smd3(4,1);
+dme3dt = Gs4*me2/NB-Gs3*me3/NB+ma3*b(5,1)*Smd3(1,1)+mb3*b(5,2)*Smd3(2,1)+mc3*b(5,3)*Smd3(3,1)+md3*b(5,4)*Smd3(4,1)-me3*Smd3(5,1);
+dmf3dt = Gs4*mf2/NB-Gs3*mf3/NB+ma3*b(6,1)*Smd3(1,1)+mb3*b(6,2)*Smd3(2,1)+mc3*b(6,3)*Smd3(3,1)+md3*b(6,4)*Smd3(4,1)+me3*b(6,5)*Smd3(5,1)-mf3*Smd3(6,1);
+dmg3dt = Gs4*mg2/NB-Gs3*mg3/NB+ma3*b(7,1)*Smd3(1,1)+mb3*b(7,2)*Smd3(2,1)+mc3*b(7,3)*Smd3(3,1)+md3*b(7,4)*Smd3(4,1)+me3*b(7,5)*Smd3(5,1)+mf3*b(7,6)*Smd3(6,1)-mg3*Smd3(7,1);
+dmh3dt = Gs4*mh2/NB-Gs3*mh3/NB+ma3*b(8,1)*Smd3(1,1)+mb3*b(8,2)*Smd3(2,1)+mc3*b(8,3)*Smd3(3,1)+md3*b(8,4)*Smd3(4,1)+me3*b(8,5)*Smd3(5,1)+mf3*b(8,6)*Smd3(6,1)+mg3*b(8,7)*Smd3(7,1)-mh3*Smd3(8,1);
+dmi3dt = Gs4*mi2/NB-Gs3*mi3/NB+ma3*b(9,1)*Smd3(1,1)+mb3*b(9,2)*Smd3(2,1)+mc3*b(9,3)*Smd3(3,1)+md3*b(9,4)*Smd3(4,1)+me3*b(9,5)*Smd3(5,1)+mf3*b(9,6)*Smd3(6,1)+mg3*b(9,7)*Smd3(7,1)+mh3*b(9,8)*Smd3(8,1)-mi3*Smd3(9,1);
+dmj3dt = Gs4*mj2/NB-Gs3*mj3/NB+ma3*b(10,1)*Smd3(1,1)+mb3*b(10,2)*Smd3(2,1)+mc3*b(10,3)*Smd3(3,1)+md3*b(10,4)*Smd3(4,1)+me3*b(10,5)*Smd3(5,1)+mf3*b(10,6)*Smd3(6,1)+mg3*b(10,7)*Smd3(7,1)+mh3*b(10,8)*Smd3(8,1)+mi3*b(10,9)*Smd3(9,1)-mj3*Smd3(10,1);
+dmk3dt = Gs4*mk2/NB-Gs3*mk3/NB+ma3*b(11,1)*Smd3(1,1)+mb3*b(11,2)*Smd3(2,1)+mc3*b(11,3)*Smd3(3,1)+md3*b(11,4)*Smd3(4,1)+me3*b(11,5)*Smd3(5,1)+mf3*b(11,6)*Smd3(6,1)+mg3*b(11,7)*Smd3(7,1)+mh3*b(11,8)*Smd3(8,1)+mi3*b(11,9)*Smd3(9,1)+mj3*b(11,10)*Smd3(10,1)-mk3*Smd3(11,1);
+dml3dt = Gs4*ml2/NB-Gs3*ml3/NB+ma3*b(12,1)*Smd3(1,1)+mb3*b(12,2)*Smd3(2,1)+mc3*b(12,3)*Smd3(3,1)+md3*b(12,4)*Smd3(4,1)+me3*b(12,5)*Smd3(5,1)+mf3*b(12,6)*Smd3(6,1)+mg3*b(12,7)*Smd3(7,1)+mh3*b(12,8)*Smd3(8,1)+mi3*b(12,9)*Smd3(9,1)+mj3*b(12,10)*Smd3(10,1)+mk3*b(12,11)*Smd3(11,1)-ml3*Smd3(12,1);
+dmm3dt = Gs4*mm2/NB-Gs3*mm3/NB+ma3*b(13,1)*Smd3(1,1)+mb3*b(13,2)*Smd3(2,1)+mc3*b(13,3)*Smd3(3,1)+md3*b(13,4)*Smd3(4,1)+me3*b(13,5)*Smd3(5,1)+mf3*b(13,6)*Smd3(6,1)+mg3*b(13,7)*Smd3(7,1)+mh3*b(13,8)*Smd3(8,1)+mi3*b(13,9)*Smd3(9,1)+mj3*b(13,10)*Smd3(10,1)+mk3*b(13,11)*Smd3(11,1)+ml3*b(13,12)*Smd3(12,1)+0*mm3;
+%Bloque 4
+dma4dt = Gs3*ma3/NB-Gs2*ma4/NB-ma4*Smd4(1,1);
+dmb4dt = Gs3*mb3/NB-Gs2*mb4/NB+ma4*b(2,1)*Smd4(1,1)-mb4*Smd4(2,1);
+dmc4dt = Gs3*mc3/NB-Gs2*mc4/NB+ma4*b(3,1)*Smd4(1,1)+mb4*b(3,2)*Smd4(2,1)-mc4*Smd4(3,1);
+dmd4dt = Gs3*md3/NB-Gs2*md4/NB+ma4*b(4,1)*Smd4(1,1)+mb4*b(4,2)*Smd4(2,1)+mc4*b(4,3)*Smd4(3,1)-md4*Smd4(4,1);
+dme4dt = Gs3*me3/NB-Gs2*me4/NB+ma4*b(5,1)*Smd4(1,1)+mb4*b(5,2)*Smd4(2,1)+mc4*b(5,3)*Smd4(3,1)+md4*b(5,4)*Smd4(4,1)-me4*Smd4(5,1);
+dmf4dt = Gs3*mf3/NB-Gs2*mf4/NB+ma4*b(6,1)*Smd4(1,1)+mb4*b(6,2)*Smd4(2,1)+mc4*b(6,3)*Smd4(3,1)+md4*b(6,4)*Smd4(4,1)+me4*b(6,5)*Smd4(5,1)-mf4*Smd4(6,1);
+dmg4dt = Gs3*mg3/NB-Gs2*mg4/NB+ma4*b(7,1)*Smd4(1,1)+mb4*b(7,2)*Smd4(2,1)+mc4*b(7,3)*Smd4(3,1)+md4*b(7,4)*Smd4(4,1)+me4*b(7,5)*Smd4(5,1)+mf4*b(7,6)*Smd4(6,1)-mg4*Smd4(7,1);
+dmh4dt = Gs3*mh3/NB-Gs2*mh4/NB+ma4*b(8,1)*Smd4(1,1)+mb4*b(8,2)*Smd4(2,1)+mc4*b(8,3)*Smd4(3,1)+md4*b(8,4)*Smd4(4,1)+me4*b(8,5)*Smd4(5,1)+mf4*b(8,6)*Smd4(6,1)+mg4*b(8,7)*Smd4(7,1)-mh4*Smd4(8,1);
+dmi4dt = Gs3*mi3/NB-Gs2*mi4/NB+ma4*b(9,1)*Smd4(1,1)+mb4*b(9,2)*Smd4(2,1)+mc4*b(9,3)*Smd4(3,1)+md4*b(9,4)*Smd4(4,1)+me4*b(9,5)*Smd4(5,1)+mf4*b(9,6)*Smd4(6,1)+mg4*b(9,7)*Smd4(7,1)+mh4*b(9,8)*Smd4(8,1)-mi4*Smd4(9,1);
+dmj4dt = Gs3*mj3/NB-Gs2*mj4/NB+ma4*b(10,1)*Smd4(1,1)+mb4*b(10,2)*Smd4(2,1)+mc4*b(10,3)*Smd4(3,1)+md4*b(10,4)*Smd4(4,1)+me4*b(10,5)*Smd4(5,1)+mf4*b(10,6)*Smd4(6,1)+mg4*b(10,7)*Smd4(7,1)+mh4*b(10,8)*Smd4(8,1)+mi4*b(10,9)*Smd4(9,1)-mj4*Smd4(10,1);
+dmk4dt = Gs3*mk3/NB-Gs2*mk4/NB+ma4*b(11,1)*Smd4(1,1)+mb4*b(11,2)*Smd4(2,1)+mc4*b(11,3)*Smd4(3,1)+md4*b(11,4)*Smd4(4,1)+me4*b(11,5)*Smd4(5,1)+mf4*b(11,6)*Smd4(6,1)+mg4*b(11,7)*Smd4(7,1)+mh4*b(11,8)*Smd4(8,1)+mi4*b(11,9)*Smd4(9,1)+mj4*b(11,10)*Smd4(10,1)-mk4*Smd4(11,1);
+dml4dt = Gs3*ml3/NB-Gs2*ml4/NB+ma4*b(12,1)*Smd4(1,1)+mb4*b(12,2)*Smd4(2,1)+mc4*b(12,3)*Smd4(3,1)+md4*b(12,4)*Smd4(4,1)+me4*b(12,5)*Smd4(5,1)+mf4*b(12,6)*Smd4(6,1)+mg4*b(12,7)*Smd4(7,1)+mh4*b(12,8)*Smd4(8,1)+mi4*b(12,9)*Smd4(9,1)+mj4*b(12,10)*Smd4(10,1)+mk4*b(12,11)*Smd4(11,1)-ml4*Smd4(12,1);
+dmm4dt = Gs3*mm3/NB-Gs2*mm4/NB+ma4*b(13,1)*Smd4(1,1)+mb4*b(13,2)*Smd4(2,1)+mc4*b(13,3)*Smd4(3,1)+md4*b(13,4)*Smd4(4,1)+me4*b(13,5)*Smd4(5,1)+mf4*b(13,6)*Smd4(6,1)+mg4*b(13,7)*Smd4(7,1)+mh4*b(13,8)*Smd4(8,1)+mi4*b(13,9)*Smd4(9,1)+mj4*b(13,10)*Smd4(10,1)+mk4*b(13,11)*Smd4(11,1)+ml4*b(13,12)*Smd4(12,1)+0*mm4;
+%Bloque 5
+dma5dt = Gs3*ma4/NB-Gs2*ma5/NB-ma5*Smd5(1,1);
+dmb5dt = Gs3*mb4/NB-Gs2*mb5/NB+ma5*b(2,1)*Smd5(1,1)-mb5*Smd5(2,1);
+dmc5dt = Gs3*mc4/NB-Gs2*mc5/NB+ma5*b(3,1)*Smd5(1,1)+mb5*b(3,2)*Smd5(2,1)-mc5*Smd5(3,1);
+dmd5dt = Gs3*md4/NB-Gs2*md5/NB+ma5*b(4,1)*Smd5(1,1)+mb5*b(4,2)*Smd5(2,1)+mc5*b(4,3)*Smd5(3,1)-md5*Smd5(4,1);
+dme5dt = Gs3*me4/NB-Gs2*me5/NB+ma5*b(5,1)*Smd5(1,1)+mb5*b(5,2)*Smd5(2,1)+mc5*b(5,3)*Smd5(3,1)+md5*b(5,4)*Smd5(4,1)-me5*Smd5(5,1);
+dmf5dt = Gs3*mf4/NB-Gs2*mf5/NB+ma5*b(6,1)*Smd5(1,1)+mb5*b(6,2)*Smd5(2,1)+mc5*b(6,3)*Smd5(3,1)+md5*b(6,4)*Smd5(4,1)+me5*b(6,5)*Smd5(5,1)-mf5*Smd5(6,1);
+dmg5dt = Gs3*mg4/NB-Gs2*mg5/NB+ma5*b(7,1)*Smd5(1,1)+mb5*b(7,2)*Smd5(2,1)+mc5*b(7,3)*Smd5(3,1)+md5*b(7,4)*Smd5(4,1)+me5*b(7,5)*Smd5(5,1)+mf5*b(7,6)*Smd5(6,1)-mg5*Smd5(7,1);
+dmh5dt = Gs3*mh4/NB-Gs2*mh5/NB+ma5*b(8,1)*Smd5(1,1)+mb5*b(8,2)*Smd5(2,1)+mc5*b(8,3)*Smd5(3,1)+md5*b(8,4)*Smd5(4,1)+me5*b(8,5)*Smd5(5,1)+mf5*b(8,6)*Smd5(6,1)+mg5*b(8,7)*Smd5(7,1)-mh5*Smd5(8,1);
+dmi5dt = Gs3*mi4/NB-Gs2*mi5/NB+ma5*b(9,1)*Smd5(1,1)+mb5*b(9,2)*Smd5(2,1)+mc5*b(9,3)*Smd5(3,1)+md5*b(9,4)*Smd5(4,1)+me5*b(9,5)*Smd5(5,1)+mf5*b(9,6)*Smd5(6,1)+mg5*b(9,7)*Smd5(7,1)+mh5*b(9,8)*Smd5(8,1)-mi5*Smd5(9,1);
+dmj5dt = Gs3*mj4/NB-Gs2*mj5/NB+ma5*b(10,1)*Smd5(1,1)+mb5*b(10,2)*Smd5(2,1)+mc5*b(10,3)*Smd5(3,1)+md5*b(10,4)*Smd5(4,1)+me5*b(10,5)*Smd5(5,1)+mf5*b(10,6)*Smd5(6,1)+mg5*b(10,7)*Smd5(7,1)+mh5*b(10,8)*Smd5(8,1)+mi5*b(10,9)*Smd5(9,1)-mj5*Smd5(10,1);
+dmk5dt = Gs3*mk4/NB-Gs2*mk5/NB+ma5*b(11,1)*Smd5(1,1)+mb5*b(11,2)*Smd5(2,1)+mc5*b(11,3)*Smd5(3,1)+md5*b(11,4)*Smd5(4,1)+me5*b(11,5)*Smd5(5,1)+mf5*b(11,6)*Smd5(6,1)+mg5*b(11,7)*Smd5(7,1)+mh5*b(11,8)*Smd5(8,1)+mi5*b(11,9)*Smd5(9,1)+mj5*b(11,10)*Smd5(10,1)-mk5*Smd5(11,1);
+dml5dt = Gs3*ml4/NB-Gs2*ml5/NB+ma5*b(12,1)*Smd5(1,1)+mb5*b(12,2)*Smd5(2,1)+mc5*b(12,3)*Smd5(3,1)+md5*b(12,4)*Smd5(4,1)+me5*b(12,5)*Smd5(5,1)+mf5*b(12,6)*Smd5(6,1)+mg5*b(12,7)*Smd5(7,1)+mh5*b(12,8)*Smd5(8,1)+mi5*b(12,9)*Smd5(9,1)+mj5*b(12,10)*Smd5(10,1)+mk5*b(12,11)*Smd5(11,1)-ml5*Smd5(12,1);
+dmm5dt = Gs3*mm4/NB-Gs2*mm5/NB+ma5*b(13,1)*Smd5(1,1)+mb5*b(13,2)*Smd5(2,1)+mc5*b(13,3)*Smd5(3,1)+md5*b(13,4)*Smd5(4,1)+me5*b(13,5)*Smd5(5,1)+mf5*b(13,6)*Smd5(6,1)+mg5*b(13,7)*Smd5(7,1)+mh5*b(13,8)*Smd5(8,1)+mi5*b(13,9)*Smd5(9,1)+mj5*b(13,10)*Smd5(10,1)+mk5*b(13,11)*Smd5(11,1)+ml5*b(13,12)*Smd5(12,1)+0*mm5;
+
+%Hkb1(i) = dma1dt+dmb1dt+dmc1dt+dmd1dt+dme1dt+dmf1dt+dmg1dt+dmh1dt+dmi1dt+dmj1dt+dmk1dt+dml1dt+dmm1dt;
+
+vectorode=[drocm1dt; drocm2dt; drocm3dt; drocm4dt; drocm5dt;...
+           dma1dt; dmb1dt; dmc1dt; dmd1dt; dme1dt; dmf1dt; dmg1dt; dmh1dt; dmi1dt; dmj1dt; dmk1dt; dml1dt; dmm1dt;...
+           dma2dt; dmb2dt; dmc2dt; dmd2dt; dme2dt; dmf2dt; dmg2dt; dmh2dt; dmi2dt; dmj2dt; dmk2dt; dml2dt; dmm2dt;...
+           dma3dt; dmb3dt; dmc3dt; dmd3dt; dme3dt; dmf3dt; dmg3dt; dmh3dt; dmi3dt; dmj3dt; dmk3dt; dml3dt; dmm3dt;...
+           dma4dt; dmb4dt; dmc4dt; dmd4dt; dme4dt; dmf4dt; dmg4dt; dmh4dt; dmi4dt; dmj4dt; dmk4dt; dml4dt; dmm4dt;...
+           dma5dt; dmb5dt; dmc5dt; dmd5dt; dme5dt; dmf5dt; dmg5dt; dmh5dt; dmi5dt; dmj5dt; dmk5dt; dml5dt; dmm5dt];
+%end
+
+figure(3)
+plot(t,Gs5,t,Gs4,t,Gs3,t,Gs2,t,Gs1),hold on
+figure(4)
+subplot(2,3,1)
+plot(t,Hkb1),hold on
+subplot(2,3,2)
+plot(t,Hkb2),hold on
+subplot(2,3,3)
+plot(t,Hkb3),hold on
+subplot(2,3,4)
+plot(t,Hkb4),hold on
+subplot(2,3,[5,6])
+plot(t,Hkb5),hold on
+figure(5)
+subplot(2,3,1)
+semilogx(Xt,fptHPGRu,'-s'),hold on
+subplot(2,3,2)
+semilogx(Xt,fptHPGRu2,'-s'),hold on
+subplot(2,3,3)
+semilogx(Xt,fptHPGRu3,'-s'),hold on
+subplot(2,3,4)
+semilogx(Xt,fptHPGRu4,'-s'),hold on
+subplot(2,3,[5,6])
+semilogx(Xt,fptHPGRu2,'-s'),hold on
+
+xlswrite('datos.xls',fptHPGRu5)
+end

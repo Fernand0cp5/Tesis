@@ -1,0 +1,16 @@
+function Salida=Porcentaje_Producto_granulometria(Entrada)
+fptHPGRu5=Entrada;
+%Granulometría de producto del HPGR (Total, Centro y Borde) par
+%interpolación del parámetro de calidad de molienda P80.
+%N° de tamaños de clases
+n=13;
+%Variables de entrada:
+for i = 1:n;
+    if fptHPGRu5(i) < 100;
+        fptHPGRu5(i) = fptHPGRu5(i);
+    else fptHPGRu5(i)>= 100;
+        fptHPGRu5(i) = (fptHPGRu5(i)*0) + (i/10000);
+    end
+end
+Salida= [fptHPGRu5];
+end

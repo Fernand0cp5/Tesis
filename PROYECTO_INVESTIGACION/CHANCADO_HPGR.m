@@ -1,0 +1,254 @@
+%function [ RESPUESTA ] = CHANCADO_HPGR( x )
+%MECANISMO DE RUPTURA 2 Y 3: CHANCADO POR EFECTO DE BORDE Y CHANCADO POR COMPRESION DE CAPAS DE PARTICULAS
+%CHANCADO DEFINIDO ENTRE EL ANGULO ALFAIP Y 0
+NB = 1; %N° de bloques del perfil de presión entre rodillos
+n = 13; %N° de tamaños de clases
+%Variables de entrada:
+Gs = 26.6834; %Capacidad de tratamiento: Gs en [ton/hora]
+alfaIP = 8.4150; %Angulo de zona de compresión de capas de partículas: en [°]
+P = 40.3087; %Potencia consumida por los rodillos: P en [kW]
+U = 0.67; %Velocidad periférica de los rodillos: U en [m/s]
+L = 0.25; %Largo de los rodillos: Lrod en [m]
+D = 0.8; %Diametro de los rodillos: Drod en [m]
+%Altura zona de compresión de capas de partículas, Z
+Z = (D/2)*sin(alfaIP*pi/180); %Z en [m]
+%Masa contenida en cada bloque k (Hold-up), Hk
+Hk = (1/NB)*Gs*Z/(3600*U) %Hk en [ton]
+%Introducción de factor geométrico, yk:
+for k = 1:NB,
+    y(k) = (L/(2*NB))*((2*k)-NB-1); %Punto medio de cada bloque k
+    NUM(k) = ((L^2)-(4*(y(k)^2))); %Numerador expresión de potencia por bloque k
+end
+SNUM = sum(NUM);
+%Potencia por bloque: Ppb(k)
+for k = 1:NB,
+    Ppb(k) = P*((NUM(k))/SNUM); %Ppb en [kW]
+end
+%INTRODUCCION DE LA FUNCION SELECCION:
+%Función selección (HERBST AND FUERSTENAU) para determinar la velocidad
+%específica de fractura por tamaño de mineral
+%Parámetros del modelo: fabricante M1 y litología Porfídica.
+S1E = 0.75;
+Z1 = -1.23;
+Z2 = -0.62;
+%Variables de entrada:
+%Tamaños de clases: X(i) en [mm]
+X(1) = 45; %tamaño 45.000 [mm]
+X(2) = 31.5; %tamaño 31.500 [mm]
+X(3) = 22.4; %tamaño 22.400 [mm]
+X(4) = 16; %tamaño 16.000 [mm]
+X(5) = 11.2; %tamaño 11.200 [mm]
+X(6) = 8; %tamaño 8.000 [mm]
+X(7) = 5.6; %tamaño 5.600 [mm]
+X(8) = 2.8; %tamaño 2.800 [mm]
+X(9) = 1; %tamaño 1.000 [mm]
+X(10) = 0.5; %tamaño 0.500 [mm]
+X(11) = 0.315; %tamaño 0.315 [mm]
+X(12) = 0.2; %tamaño 0.200 [mm]
+X(13) = 0.125; %tamaño 0.125 [mm]
+%Determinación de los tamaños medios geométricos, X
+for i=1:n-1,
+    X(i)=sqrt(X(i)*X(i+1))
+end
+for i=n,
+    X(i)=X(i)/2;
+end
+for i=1:n,
+    %Sea A = log (SiE/S1E)
+    A(i) = (Z1*log(X(i)/X(1)))+(Z2*(log(X(i)/X(1)))^2)
+    %Velocidad específica de fractura por tamaño, SiE
+    SiE(i) = exp(A(i))*S1E; %SiE en [ton/kWh]
+end
+SiE
+%velocidad específica de fractura para cada tamaño en cada bloque: S(i,k)
+for i = 1:n,
+    for k = 1:NB,
+        S(i,k) = (Ppb(k)/Hk)*SiE(i)/3600 %S(i,k) en [1/s]
+    end
+end
+S
+%INTRODUCCION DE LA FUNCION RUPTURA:
+%Matriz Función Ruptura
+%Parámetros del modelo ajustados para: Fabricante M1 y Litología Porfídica
+alfa1 = 0.15;
+alfa2 = 0.21;
+alfa3 = 5.96;
+%Variables de entrada:
+%Función de la distribucion de fractura primaria B(i)
+%B(i): fracción en peso retenida acumulada
+for i=1:n,
+    B(i) = alfa1*((X(i)/X(2))^alfa2)+(1-alfa1)*((X(i)/X(2))^alfa3);
+end
+B
+%Matriz bij: fracción en peso de tamaño j que por fractura pasa a tamaño i
+for j=1:n,
+    suma = 0;
+    for i=1:n-1,
+        if i>j,
+            b(i,j)=B(i-j+1)-B(i-j+2);
+            suma = suma + b(i,j);
+        else i<=j,
+            b(i,j)=0;
+        end
+    end
+    suma
+    for i=n,
+        b(i,j)=1-suma;
+    end
+end
+for i=n,
+    for j=n,
+        b(i,j) = 0;
+    end
+end
+b
+%0    0.0179    0.5111    0.1519    0.0642    0.0482    0.0579    0.0435
+%0.0232    0.0126    0.0112    0.0107    0.0477
+%Variables de entrada para modelar la Matriz de REID:
+%Introducción de la alimentacion a zona BP: f(i)ipHPGR (13 mallas)
+fipHPGR(1) = 0; %fracción retenido discreto, tamaño 45.000 [mm]
+fipHPGR(2) = 0.0179;%0.0130; %fracción retenido discreto, tamaño 31.500 [mm]
+fipHPGR(3) = 0.5111;%0.4880; %fracción retenido discreto, tamaño 22.400 [mm]
+fipHPGR(4) = 0.1519;%0.1631; %fracción retenido discreto, tamaño 16.000 [mm]
+fipHPGR(5) = 0.0642;%0.0843; %fracción retenido discreto, tamaño 11.200 [mm]
+fipHPGR(6) = 0.0482;%0.0702; %fracción retenido discreto, tamaño 8.000 [mm]
+fipHPGR(7) = 0.0579;%0.0728; %fracción retenido discreto, tamaño 5.600 [mm]
+fipHPGR(8) = 0.0435;%0.0317; %fracción retenido discreto, tamaño 2.800 [mm]
+fipHPGR(9) = 0.0232;%0.0169; %fracción retenido discreto, tamaño 1.000 [mm]
+fipHPGR(10) = 0.0126;%0.0092; %fracción retenido discreto, tamaño 0.500 [mm]
+fipHPGR(11) = 0.0112;%0.0082; %fracción retenido discreto, tamaño 0.315 [mm]
+fipHPGR(12) = 0.0107;%0.0078; %fracción retenido discreto, tamaño 0.200 [mm]
+fipHPGR(13) = 0.0477;%0.0348; %fracción retenido discreto, tam  año 0.125 [mm]
+%Valores de partida
+A(1,1) = fipHPGR(1);
+%MATRIZ DE REID CONDICIONES
+for i=1:n,
+    for j=1:n,
+        if i<j,
+            A(i,j) = 0;
+        else if i>j,
+                suma = 0;
+                for l=j:i-1,
+                    suma = suma + b(i,l)*SiE(l)*A(l,j)/(SiE(i)-SiE(j));
+                    A(i,j) = suma;
+                end
+                suma;
+            else i=j,
+                suma = 0;
+                for l=1:i-1,
+                    suma = suma + A(i,l);
+                    A(i,j) = fipHPGR(i) - suma;
+                end
+                suma;
+            end
+        end
+    end
+    A
+end
+%Distribución del tamaño de partícula en zona BP,
+for k = 1:NB,
+    for i = 1:n-1,
+        suma = 0;
+        for j = 1:i,
+            suma = suma + A(i,j)*exp(-1*S(j,k)*Z/U);% Distribución granulométrica
+            %de producto de la zona de compresión de capas de partículas, para cada bloque k, [ton(i)/ton
+            p(i,k) = suma;
+        end
+        suma;
+    end
+    for i = n,
+        p(i,k) = 1 - sum(p(1:n-1,k));
+    end
+end
+p
+%Distribucion de tamaño de partícula total HPGR: f(i)ptHPGR en [ton(i)/tonT]
+for i = 1:n,
+    suma = 0;
+    for k = 1:NB,
+        suma = suma + p(i,k);
+        fptHPGR(i) = suma/NB;%GRANULOMETRIA DE PRODUCTO TOTAL DEL HPGR
+    end
+    suma;
+end
+fptHPGR
+%Distribución de tamaño de partícula bordes del HPGR: f(i)peHPGR en
+%[ton(i)/tonT]
+a = 0.24; %Parámetro fracción en peso que circula en los bordes
+E = 0.5*a*NB; %N° de bloques, E, correspondiente a los bordes
+for i=1:n,
+    suma = 0;
+    for k = 1:round(E),
+        suma = suma + p(i,k);
+    end
+    suma;
+    fpeHPGR(i) = (suma + (E - round(E))*p(i,round(E)+1))/E;
+    %GRANULOMETRIA DE PRODUCTO CHANCADO POR EFECTO DE BORDE
+end
+%Distribución de tamaño de partícula centro del HPGR: f(i)pcHPGR en
+%[ton(i)/tonT]
+for i = 1:n,
+    fpcHPGR(i) = (fptHPGR(i) - a*fpeHPGR(i))/(1-a);
+    %GRANULOMETRIA DE PRODUCTO CHANCADO POR COMPRESION DE CAPAS DE
+    %PARTICULAS
+end
+%Distribución de tamaño de productos en forma acumulada pasante
+for i = 1,
+    fptHPGRu(i) = 1;
+    fpeHPGRu(i) = 1;
+    fpcHPGRu(i) = 1;
+end
+for i = 2:n,
+    fptHPGRu(i) = fptHPGRu(i-1) - fptHPGR(i-1);
+    fpeHPGRu(i) = fpeHPGRu(i-1) - fpeHPGR(i-1);
+    fpcHPGRu(i) = fpcHPGRu(i-1) - fpcHPGR(i-1);
+end
+fptHPGRu(1:n) = fptHPGRu(1:n)*100;
+fpeHPGRu(1:n) = fpeHPGRu(1:n)*100;
+fpcHPGRu(1:n) = fpcHPGRu(1:n)*100;
+[ RESPUESTA ] = [ fptHPGRu(1:n);fpeHPGRu(1:n);fpcHPGRu(1:n) ]
+% %end
+% %Smd=S*3600
+% Gs6=Gs;
+% Gs5=Gs;
+% % mb1 = (Gs6*fipHPGR(2)/NB-Gs5*p(2,1)/NB)/Smd(2,1)
+% % mc1 = (Gs6*fipHPGR(3)/NB-Gs5*p(3,1)/NB+mb1*b(3,2)*Smd(2,1))/Smd(3,1)
+% % md1 = (Gs6*fipHPGR(4)/NB-Gs5*p(4,1)/NB+mb1*b(4,2)*Smd(2,1)+mc1*b(4,3)*Smd(3,1))/Smd(4,1)
+% % me1 = (Gs6*fipHPGR(5)/NB-Gs5*p(5,1)/NB+mb1*b(5,2)*Smd(2,1)+mc1*b(5,3)*Smd(3,1)+md1*b(5,4)*Smd(4,1))/Smd(5,1)
+% % mf1 = (Gs6*fipHPGR(6)/NB-Gs5*p(6,1)/NB+mb1*b(6,2)*Smd(2,1)+mc1*b(6,3)*Smd(3,1)+md1*b(6,4)*Smd(4,1)+me1*b(6,5)*Smd(5,1))/Smd(6,1)
+% % mg1 = (Gs6*fipHPGR(7)/NB-Gs5*p(7,1)/NB+mb1*b(7,2)*Smd(2,1)+mc1*b(7,3)*Smd(3,1)+md1*b(7,4)*Smd(4,1)+me1*b(7,5)*Smd(5,1)+mf1*b(7,6)*Smd(6,1))/Smd(7,1)
+% % mh1 = (Gs6*fipHPGR(8)/NB-Gs5*p(8,1)/NB+mb1*b(8,2)*Smd(2,1)+mc1*b(8,3)*Smd(3,1)+md1*b(8,4)*Smd(4,1)+me1*b(8,5)*Smd(5,1)+mf1*b(8,6)*Smd(6,1)+mg1*b(8,7)*Smd(7,1))/Smd(8,1)
+% % mi1 = (Gs6*fipHPGR(9)/NB-Gs5*p(9,1)/NB+mb1*b(9,2)*Smd(2,1)+mc1*b(9,3)*Smd(3,1)+md1*b(9,4)*Smd(4,1)+me1*b(9,5)*Smd(5,1)+mf1*b(9,6)*Smd(6,1)+mg1*b(9,7)*Smd(7,1)+mh1*b(9,8)*Smd(8,1))/Smd(9,1)
+% % mj1 = (Gs6*fipHPGR(10)/NB-Gs5*p(10,1)/NB+mb1*b(10,2)*Smd(2,1)+mc1*b(10,3)*Smd(3,1)+md1*b(10,4)*Smd(4,1)+me1*b(10,5)*Smd(5,1)+mf1*b(10,6)*Smd(6,1)+mg1*b(10,7)*Smd(7,1)+mh1*b(10,8)*Smd(8,1)+mi1*b(10,9)*Smd(9,1))/Smd(10,1)
+% % mk1 = (Gs6*fipHPGR(11)/NB-Gs5*p(11,1)/NB+mb1*b(11,2)*Smd(2,1)+mc1*b(11,3)*Smd(3,1)+md1*b(11,4)*Smd(4,1)+me1*b(11,5)*Smd(5,1)+mf1*b(11,6)*Smd(6,1)+mg1*b(11,7)*Smd(7,1)+mh1*b(11,8)*Smd(8,1)+mi1*b(11,9)*Smd(9,1)+mj1*b(11,10)*Smd(10,1))/Smd(11,1)
+% % ml1 = (Gs6*fipHPGR(12)/NB-Gs5*p(12,1)/NB+mb1*b(12,2)*Smd(2,1)+mc1*b(12,3)*Smd(3,1)+md1*b(12,4)*Smd(4,1)+me1*b(12,5)*Smd(5,1)+mf1*b(12,6)*Smd(6,1)+mg1*b(12,7)*Smd(7,1)+mh1*b(12,8)*Smd(8,1)+mi1*b(12,9)*Smd(9,1)+mj1*b(12,10)*Smd(10,1)+mk1*b(12,11)*Smd(11,1))/Smd(12,1)
+% % mm1 =  Gs6*fipHPGR(13)/NB-Gs5*p(13,1)/NB+mb1*b(13,2)*Smd(2,1)+mc1*b(13,3)*Smd(3,1)+md1*b(13,4)*Smd(4,1)+me1*b(13,5)*Smd(5,1)+mf1*b(13,6)*Smd(6,1)+mg1*b(13,7)*Smd(7,1)+mh1*b(13,8)*Smd(8,1)+mi1*b(13,9)*Smd(9,1)+mj1*b(13,10)*Smd(10,1)+mk1*b(13,11)*Smd(11,1)+ml1*b(13,12)*Smd(12,1)
+% syms k2 k3 k4 k5 k6 k7 k8 k9 k10 k11 k12 
+% BB = strcat(num2str(0),'=',char(Gs6*fipHPGR(2)/NB-Gs5*p(2,1)/NB-p(2,1)*Hk*k2))
+% CC = strcat(num2str(0),'=',char(Gs6*fipHPGR(3)/NB-Gs5*p(3,1)/NB+p(2,1)*Hk*b(3,2)*k2-p(3,1)*Hk*k3))
+% DD = strcat(num2str(0),'=',char(Gs6*fipHPGR(4)/NB-Gs5*p(4,1)/NB+p(2,1)*Hk*b(4,2)*k2+p(3,1)*Hk*b(4,3)*k3-p(4,1)*Hk*k4))
+% EE = strcat(num2str(0),'=',char(Gs6*fipHPGR(5)/NB-Gs5*p(5,1)/NB+p(2,1)*Hk*b(5,2)*k2+p(3,1)*Hk*b(5,3)*k3+p(4,1)*Hk*b(5,4)*k4-p(5,1)*Hk*k5))
+% FF = strcat(num2str(0),'=',char(Gs6*fipHPGR(6)/NB-Gs5*p(6,1)/NB+p(2,1)*Hk*b(6,2)*k2+p(3,1)*Hk*b(6,3)*k3+p(4,1)*Hk*b(6,4)*k4+p(5,1)*Hk*b(6,5)*k5-p(6,1)*Hk*k6))
+% GG = strcat(num2str(0),'=',char(Gs6*fipHPGR(7)/NB-Gs5*p(7,1)/NB+p(2,1)*Hk*b(7,2)*k2+p(3,1)*Hk*b(7,3)*k3+p(4,1)*Hk*b(7,4)*k4+p(5,1)*Hk*b(7,5)*k5+p(6,1)*Hk*b(7,6)*k6-p(7,1)*Hk*k7))
+% HH = strcat(num2str(0),'=',char(Gs6*fipHPGR(8)/NB-Gs5*p(8,1)/NB+p(2,1)*Hk*b(8,2)*k2+p(3,1)*Hk*b(8,3)*k3+p(4,1)*Hk*b(8,4)*k4+p(5,1)*Hk*b(8,5)*k5+p(6,1)*Hk*b(8,6)*k6+p(7,1)*Hk*b(8,7)*k7-p(8,1)*Hk*k8))
+% II = strcat(num2str(0),'=',char(Gs6*fipHPGR(9)/NB-Gs5*p(9,1)/NB+p(2,1)*Hk*b(9,2)*k2+p(3,1)*Hk*b(9,3)*k3+p(4,1)*Hk*b(9,4)*k4+p(5,1)*Hk*b(9,5)*k5+p(6,1)*Hk*b(9,6)*k6+p(7,1)*Hk*b(9,7)*k7+p(8,1)*Hk*b(9,8)*k8-p(9,1)*Hk*k9))
+% JJ = strcat(num2str(0),'=',char(Gs6*fipHPGR(10)/NB-Gs5*p(10,1)/NB+p(2,1)*Hk*b(10,2)*k2+p(3,1)*Hk*b(10,3)*k3+p(4,1)*Hk*b(10,4)*k4+p(5,1)*Hk*b(10,5)*k5+p(6,1)*Hk*b(10,6)*k6+p(7,1)*Hk*b(10,7)*k7+p(8,1)*Hk*b(10,8)*k8+p(9,1)*Hk*b(10,9)*k9-p(10,1)*Hk*k10))
+% KK = strcat(num2str(0),'=',char(Gs6*fipHPGR(11)/NB-Gs5*p(11,1)/NB+p(2,1)*Hk*b(11,2)*k2+p(3,1)*Hk*b(11,3)*k3+p(4,1)*Hk*b(11,4)*k4+p(5,1)*Hk*b(11,5)*k5+p(6,1)*Hk*b(11,6)*k6+p(7,1)*Hk*b(11,7)*k7+p(8,1)*Hk*b(11,8)*k8+p(9,1)*Hk*b(11,9)*k9+p(10,1)*Hk*b(11,10)*k10-p(11,1)*Hk*k11))
+% LL = strcat(num2str(0),'=',char(Gs6*fipHPGR(12)/NB-Gs5*p(12,1)/NB+p(2,1)*Hk*b(12,2)*k2+p(3,1)*Hk*b(12,3)*k3+p(4,1)*Hk*b(12,4)*k4+p(5,1)*Hk*b(12,5)*k5+p(6,1)*Hk*b(12,6)*k6+p(7,1)*Hk*b(12,7)*k7+p(8,1)*Hk*b(12,8)*k8+p(9,1)*Hk*b(12,9)*k9+p(10,1)*Hk*b(12,10)*k10+p(11,1)*Hk*b(12,11)*k11-p(12,1)*Hk*k12))
+% solve(BB,CC,DD,EE,FF,GG,HH,II,JJ,KK,LL,'k2','k3','k4','k5','k6','k7','k8','k9','k10','k11','k12')
+% k2 = double(ans.k2)
+% k3 = double(ans.k3)
+% k4 = double(ans.k4)
+% k5 = double(ans.k5)
+% k6 = double(ans.k6)
+% k7 = double(ans.k7)
+% k8 = double(ans.k8)
+% k9 = double(ans.k9)
+% k10 = double(ans.k10)
+% k11 = double(ans.k11)
+% k12 = double(ans.k12)
+% k = [k2 k3 k4 k5 k6 k7 k8 k9 k10 k11 k12]
+
+
+
+
+

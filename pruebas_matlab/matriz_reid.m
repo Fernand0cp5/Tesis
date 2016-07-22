@@ -1,0 +1,148 @@
+NB = 31; %N° de bloques del perfil de presión entre rodillos
+n = 13; %N° de tamaños de clases
+%Variables de entrada:
+Gs = 26.6834; %Capacidad de tratamiento: Gs en [ton/hora]
+alfaIP = 8.4150; %Angulo de zona de compresión de capas de partículas: en [°]
+P = 40.3087; %Potencia consumida por los rodillos: P en [kW]
+U = 0.67; %Velocidad periférica de los rodillos: U en [m/s]
+L = 0.25; %Largo de los rodillos: Lrod en [m]
+D = 0.8; %Diametro de los rodillos: Drod en [m]
+%Altura zona de compresión de capas de partículas, Z
+Z = (D/2)*sin(alfaIP*pi/180); %Z en [m]
+%Masa contenida en cada bloque k (Hold-up), Hk
+Hk = (1/NB)*Gs*Z/(3600*U); %Hk en [ton]
+%Introducción de factor geométrico, yk:
+for k = 1:NB,
+    y(k) = (L/(2*NB))*((2*k)-NB-1); %Punto medio de cada bloque k
+    NUM(k) = ((L^2)-(4*(y(k)^2))); %Numerador expresión de potencia por bloque k
+end
+SNUM = sum(NUM);
+%Potencia por bloque: Ppb(k)
+for k = 1:NB,
+    Ppb(k) = P*((NUM(k))/SNUM); %Ppb en [kW]
+end
+%INTRODUCCION DE LA FUNCION SELECCION:
+%Función selección (HERBST AND FUERSTENAU) para determinar la velocidad
+%específica de fractura por tamaño de mineral
+%Parámetros del modelo: fabricante M1 y litología Porfídica.
+S1E = 0.75;
+Z1 = -1.23;
+Z2 = -0.62;
+%Variables de entrada:
+%Tamaños de clases: X(i) en [mm]
+X(1) = 45; %tamaño 45.000 [mm]
+X(2) = 31.5; %tamaño 31.500 [mm]
+X(3) = 22.4; %tamaño 22.400 [mm]
+X(4) = 16; %tamaño 16.000 [mm]
+X(5) = 11.2; %tamaño 11.200 [mm]
+X(6) = 8; %tamaño 8.000 [mm]
+X(7) = 5.6; %tamaño 5.600 [mm]
+X(8) = 2.8; %tamaño 2.800 [mm]
+X(9) = 1; %tamaño 1.000 [mm]
+X(10) = 0.5; %tamaño 0.500 [mm]
+X(11) = 0.315; %tamaño 0.315 [mm]
+X(12) = 0.2; %tamaño 0.200 [mm]
+X(13) = 0.125; %tamaño 0.125 [mm]
+%Determinación de los tamaños medios geométricos, X
+for i=1:n-1,
+    X(i)=sqrt(X(i)*X(i+1));
+end
+for i=n,
+    X(i)=X(i)/2;
+end
+for i=1:n,
+    %Sea A = log (SiE/S1E)
+    A(i) = (Z1*log(X(i)/X(1)))+(Z2*log(X(i)/X(1))^2);
+    %Velocidad específica de fractura por tamaño, SiE
+    SiE(i) = exp(A(i))*S1E; %SiE en [ton/kWh]
+end
+%INTRODUCCION DE LA FUNCION RUPTURA:
+%Matriz Función Ruptura
+%Parámetros del modelo ajustados para: Fabricante M1 y Litología Porfídica
+alfa1 = 0.15;
+alfa2 = 0.21;
+alfa3 = 5.96;
+%Variables de entrada:
+%Función de la distribucion de fractura primaria B(i)
+%B(i): fracción en peso retenida acumulada
+for i=1:n,
+    B(i) = alfa1*((X(i)/X(2))^alfa2)+(1-alfa1)*((X(i)/X(2))^alfa3);
+end
+B
+%Matriz bij: fracción en peso de tamaño j que por fractura pasa a tamaño i
+for j=1:n,
+    suma = 0;
+    for i=1:n-1,
+        if i>j,
+            b(i,j)=B(i-j+1)-B(i-j+2);
+            suma = suma + b(i,j);
+        else i<=j,
+            b(i,j)=0;
+        end
+    end
+    suma
+    for i=n,
+        b(i,j)=1-suma;
+    end
+end
+for i=n,
+    for j=n,
+        b(i,j) = 0;
+    end
+end
+%Variables de entrada para modelar la Matriz de REID:
+%Introducción de la alimentacion a zona BP: f(i)ipHPGR (13 mallas)
+fipHPGR(1) = 0; %fracción retenido discreto, tamaño 45.000 [mm]
+fipHPGR(2) = 0.0179; %fracción retenido discreto, tamaño 31.500 [mm]
+fipHPGR(3) = 0.5111; %fracción retenido discreto, tamaño 22.400 [mm]
+fipHPGR(4) = 0.1519; %fracción retenido discreto, tamaño 16.000 [mm]
+fipHPGR(5) = 0.0642; %fracción retenido discreto, tamaño 11.200 [mm]
+fipHPGR(6) = 0.0482; %fracción retenido discreto, tamaño 8.000 [mm]
+fipHPGR(7) = 0.05789; %fracción retenido discreto, tamaño 5.600 [mm]
+fipHPGR(8) = 0.0435; %fracción retenido discreto, tamaño 2.800 [mm]
+fipHPGR(9) = 0.0232; %fracción retenido discreto, tamaño 1.000 [mm]
+fipHPGR(10) = 0.0126; %fracción retenido discreto, tamaño 0.500 [mm]
+fipHPGR(11) = 0.0112; %fracción retenido discreto, tamaño 0.315 [mm]
+fipHPGR(12) = 0.0107; %fracción retenido discreto, tamaño 0.200 [mm]
+fipHPGR(13) = 0.0477; %fracción retenido discreto, tamaño 0.125 [mm]
+%Valores de partida
+A(1,1) = fipHPGR(1);
+%MATRIZ DE REID CONDICIONES
+for i=1:n,
+    for j=1:n,
+        if i<j,
+            A(i,j) = 0;
+        else if i>j,
+                suma = 0
+                for l=j:i-1,
+                    suma = suma + b(i,l)*SiE(l)*A(l,j)/(SiE(i)-SiE(j));
+                    A(i,j) = suma;
+                end
+                suma;
+            else i=j,
+                suma = 0
+                for l=1:i-1,
+                    suma = suma + A(i,l);
+                    A(i,j) = fipHPGR(i) - suma;
+                end
+                suma;
+            end
+        end
+    end
+end
+%Distribución del tamaño de partícula en zona BP,
+%Granulometria por bloques 
+for k = 1:NB,
+    for i = 1:n-1,
+        suma = 0;
+        for j = 1:i,
+            suma = suma + A(i,j)*exp(-1*S(j,k)*Z/U);% Distribución granulométrica ec 3.29
+            %de producto de la zona de compresión de capas de partículas, para cada bloque k, [ton(i)/ton
+            p(i,k) = suma
+        end
+        suma
+    end
+    for i = n,
+        p(i,k) = 1 - sum(p(1:n-1,k))
+    end
+end

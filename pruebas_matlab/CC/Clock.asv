@@ -1,0 +1,37 @@
+function Salida= Clock(Entrada)
+t=Entrada(1);
+faHPGRi(1)=Entrada(2);
+faHPGRi(2)=Entrada(3);
+faHPGRi(3)=Entrada(4);
+faHPGRi(4)=Entrada(5);
+faHPGRi(5)=Entrada(6);
+faHPGRi(6)=Entrada(7);
+faHPGRi(7)=Entrada(8);
+faHPGRi(8)=Entrada(9);
+faHPGRi(9)=Entrada(10);
+faHPGRi(10)=Entrada(11);
+faHPGRi(11)=Entrada(12);
+faHPGRi(12)=Entrada(13);
+faHPGRi(13)=Entrada(14);
+faHPGR(1)=Entrada(15);
+faHPGR(2)=Entrada(16);
+faHPGR(3)=Entrada(17);
+faHPGR(4)=Entrada(18);
+faHPGR(5)=Entrada(19);
+faHPGR(6)=Entrada(20);
+faHPGR(7)=Entrada(21);
+faHPGR(8)=Entrada(22);
+faHPGR(9)=Entrada(23);
+faHPGR(10)=Entrada(24);
+faHPGR(11)=Entrada(25);
+faHPGR(12)=Entrada(26);
+faHPGR(13)=Entrada(27);
+if t>0;
+    Salida=[faHPGR(1) faHPGR(2) faHPGR(3) faHPGR(4) faHPGR(5) faHPGR(6)...
+            faHPGR(7) faHPGR(8) faHPGR(9) faHPGR(10) faHPGR(11) faHPGR(12) faHPGR(13)];
+else
+    t=0;
+    Salida=[faHPGRi(1) faHPGRi(2) faHPGRi(3) faHPGRi(4) faHPGRi(5) faHPGRi(6)...
+            faHPGRi(7) faHPGRi(8) faHPGRi(9) faHPGRi(10) faHPGRi(11) faHPGRi(12) faHPGRi(13)];
+end
+end
