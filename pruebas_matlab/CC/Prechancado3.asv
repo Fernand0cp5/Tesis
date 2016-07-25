@@ -1,4 +1,4 @@
-function Salida=Prechancado(Entrada)
+function Salida=Prechancado3(Entrada)
 D = Entrada(1); %Diámetro de los rodillos: D en [m]
 L = Entrada(2); %Largo de los rodillos: L en [m]
 s0 = Entrada(3); %Gap operacional: s0 en [m]
@@ -114,5 +114,5 @@ else
     fipHPGR = faHPGR; %Alimentación directa a la zona de chancado cuando es X(i) < a Xc
 end
  Xt = X;
-Salida=DO[fipHPGR,Xt,P,h,alfaIP,Gs11];
+Salida=[P,h,alfaIP,Gs11];
 end
