@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.48"
+    ComputedModelVersion    "1.50"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -25,9 +25,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Fer"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jul 25 17:54:52 2016"
-  RTWModifiedTimeStamp	  391370036
-  ModelVersionFormat	  "1.%<AutoIncrement:48>"
+  LastModifiedDate	  "Mon Aug 01 09:47:07 2016"
+  RTWModifiedTimeStamp	  391945170
+  ModelVersionFormat	  "1.%<AutoIncrement:50>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -110,7 +110,7 @@ Model {
 	  $ObjectID		  2
 	  Version		  "1.10.0"
 	  StartTime		  "0.0"
-	  StopTime		  "0"
+	  StopTime		  "40"
 	  AbsTol		  "auto"
 	  FixedStep		  "auto"
 	  InitialStep		  "auto"
@@ -799,7 +799,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "65"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    622
+    SIDHighWatermark	    623
     Block {
       BlockType		      Constant
       Name		      "D"
@@ -825,7 +825,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Harnero bajo tamano"
-	Location		[0, 83, 1366, 739]
+	Location		[0, 83, 1346, 739]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1132,7 +1132,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"MOLINO DE RODILLOS\nDE ALTA PRESION\nHPGR"
-	Location		[10, 83, 1355, 715]
+	Location		[10, 83, 1339, 715]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -1185,7 +1185,7 @@ Model {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Calculo dinamico \nde Gs"
-	    Location		    [10, 83, 1355, 698]
+	    Location		    [10, 83, 1339, 698]
 	    Open		    off
 	    ModelBrowserVisibility  off
 	    ModelBrowserWidth	    200
@@ -1780,6 +1780,7 @@ Model {
 	      Location		      [5, 49, 1371, 727]
 	      Open		      off
 	      NumInputPorts	      "1"
+	      ZoomMode		      "yonly"
 	      List {
 		ListType		AxesTitles
 		axes1			"%<SignalLabel>"
@@ -1936,7 +1937,7 @@ Model {
 	      Name		      "Volumen"
 	      SID		      534
 	      Ports		      [2, 10]
-	      Position		      [705, 883, 845, 1107]
+	      Position		      [705, 888, 845, 1112]
 	      MinAlgLoopOccurrences   off
 	      PropExecContextOutsideSubsystem off
 	      RTWSystemCode	      "Auto"
@@ -2360,7 +2361,7 @@ Model {
 		}
 		Branch {
 		  Labels		  [0, 0]
-		  Points		  [0, 415]
+		  Points		  [0, 420]
 		  DstBlock		  "Volumen"
 		  DstPort		  1
 		}
@@ -2690,7 +2691,7 @@ Model {
 	      }
 	      Branch {
 		Labels			[0, 0]
-		Points			[-90, 0; 0, 745]
+		Points			[-90, 0; 0, 750]
 		DstBlock		"Volumen"
 		DstPort			2
 	      }
@@ -3001,7 +3002,7 @@ Model {
 	    Line {
 	      SrcBlock		      "Volumen"
 	      SrcPort		      1
-	      Points		      [0, -535; -120, 0]
+	      Points		      [0, -540; -120, 0]
 	      DstBlock		      "Mux3"
 	      DstPort		      4
 	    }
@@ -3022,49 +3023,49 @@ Model {
 	    Line {
 	      SrcBlock		      "Volumen"
 	      SrcPort		      4
-	      Points		      [445, 0; 0, -25]
+	      Points		      [445, 0; 0, -30]
 	      DstBlock		      "Mux6"
 	      DstPort		      5
 	    }
 	    Line {
 	      SrcBlock		      "Volumen"
 	      SrcPort		      5
-	      Points		      [650, 0; 0, 115]
+	      Points		      [650, 0; 0, 110]
 	      DstBlock		      "Mux7"
 	      DstPort		      5
 	    }
 	    Line {
 	      SrcBlock		      "Volumen"
 	      SrcPort		      6
-	      Points		      [885, 0; 0, 260]
+	      Points		      [885, 0; 0, 255]
 	      DstBlock		      "Mux1"
 	      DstPort		      5
 	    }
 	    Line {
 	      SrcBlock		      "Volumen"
 	      SrcPort		      7
-	      Points		      [235, 0; 0, 440]
+	      Points		      [235, 0; 0, 435]
 	      DstBlock		      "Mux2"
 	      DstPort		      5
 	    }
 	    Line {
 	      SrcBlock		      "Volumen"
 	      SrcPort		      8
-	      Points		      [215, 0; 0, 610]
+	      Points		      [215, 0; 0, 605]
 	      DstBlock		      "Mux8"
 	      DstPort		      5
 	    }
 	    Line {
 	      SrcBlock		      "Volumen"
 	      SrcPort		      9
-	      Points		      [195, 0; 0, 785]
+	      Points		      [195, 0; 0, 780]
 	      DstBlock		      "Mux9"
 	      DstPort		      5
 	    }
 	    Line {
 	      SrcBlock		      "Volumen"
 	      SrcPort		      10
-	      Points		      [175, 0; 0, 970]
+	      Points		      [175, 0; 0, 965]
 	      DstBlock		      "Mux10"
 	      DstPort		      5
 	    }
@@ -3124,7 +3125,7 @@ Model {
 	  Name			  "Display4"
 	  SID			  492
 	  Ports			  [1]
-	  Position		  [225, 689, 310, 711]
+	  Position		  [220, 684, 315, 716]
 	  Decimation		  "1"
 	  Lockdown		  off
 	}
@@ -3979,7 +3980,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Tolva de Alimentacion"
-	Location		[2, 83, 1364, 715]
+	Location		[2, 83, 1348, 715]
 	Open			off
 	ModelBrowserVisibility	off
 	ModelBrowserWidth	200
@@ -4168,6 +4169,15 @@ Model {
       SID		      5
       Position		      [700, 430, 730, 460]
       Value		      "0.67"
+      OutDataType	      "fixdt(1, 16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "faHPGR"
+      SID		      623
+      Position		      [485, 755, 515, 785]
+      Value		      "[0.0239 0.4001 0.2089 0.1090 0.0549 0.0441 0.0542 0.0374 0.0159 0.0085 0.0088 0.0085 0.0258]"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
     }
@@ -4373,16 +4383,9 @@ Model {
     Line {
       SrcBlock		      "faHPGRi"
       SrcPort		      1
-      Points		      [0, -115; -140, 0; 0, 15; -30, 0]
-      Branch {
-	DstBlock		"Mux"
-	DstPort			9
-      }
-      Branch {
-	Points			[0, 190]
-	DstBlock		"faHPGR1"
-	DstPort			1
-      }
+      Points		      [0, -115; -140, 0; 0, 15; -30, 0; 0, 190]
+      DstBlock		      "faHPGR1"
+      DstPort		      1
     }
     Line {
       SrcBlock		      "s0"
@@ -4398,6 +4401,13 @@ Model {
 	DstBlock		"Mux2"
 	DstPort			3
       }
+    }
+    Line {
+      SrcBlock		      "faHPGR"
+      SrcPort		      1
+      Points		      [155, 0; 0, -85; 145, 0; 0, -65]
+      DstBlock		      "Mux"
+      DstPort		      9
     }
   }
 }
