@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.4"
+    ComputedModelVersion    "1.10"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -25,9 +25,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Fer"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jul 25 17:54:41 2016"
-  RTWModifiedTimeStamp	  391369815
-  ModelVersionFormat	  "1.%<AutoIncrement:4>"
+  LastModifiedDate	  "Tue Aug 02 11:33:50 2016"
+  RTWModifiedTimeStamp	  392038428
+  ModelVersionFormat	  "1.%<AutoIncrement:10>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1958,7 +1958,7 @@ Model {
 	  $ObjectID		  50
 	  Version		  "1.10.0"
 	  StartTime		  "0.0"
-	  StopTime		  "10.0"
+	  StopTime		  "500"
 	  AbsTol		  "auto"
 	  FixedStep		  "auto"
 	  InitialStep		  "auto"
@@ -2466,11 +2466,39 @@ Model {
       PreserveConstantTs      off
     }
     Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
       BlockType		      Display
       Format		      "short"
       Decimation	      "10"
       Floating		      off
       SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      DataType		      "auto"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchInputForFeedbackSignals off
+      Interpolate	      on
     }
     Block {
       BlockType		      Integrator
@@ -2504,6 +2532,46 @@ Model {
       NonVirtualBus	      off
     }
     Block {
+      BlockType		      Outport
+      Port		      "1"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      DataType		      "auto"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      SourceOfInitialOutputValue "Dialog"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      Product
+      Inputs		      "2"
+      Multiplication	      "Element-wise(.*)"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      OutDataTypeStr	      "Inherit: Same as first input"
+      LockScale		      off
+      RndMeth		      "Zero"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
       BlockType		      Scope
       ModelBased	      off
       TickLabels	      "OneTimeTick"
@@ -2520,10 +2588,29 @@ Model {
       SampleInput	      off
       SampleTime	      "-1"
     }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      "FromPortIcon"
+      Permissions	      "ReadWrite"
+      PermitHierarchicalResolution "All"
+      TreatAsAtomicUnit	      off
+      CheckFcnCallInpInsideContextMsg off
+      SystemSampleTime	      "-1"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      MinMaxOverflowLogging   "UseLocalSettings"
+    }
   }
   System {
     Name		    "gss10"
-    Location		    [2, 83, 1364, 715]
+    Location		    [2, 83, 1348, 732]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -2537,173 +2624,630 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    26
+    SIDHighWatermark	    93
     Block {
       BlockType		      Constant
       Name		      "Constant"
-      SID		      26
-      Position		      [430, 445, 460, 475]
-      Value		      "2.329"
+      SID		      93
+      Position		      [545, 355, 575, 385]
+      Value		      "2.2"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
     }
     Block {
-      BlockType		      Display
-      Name		      "Display"
-      SID		      24
-      Ports		      [1]
-      Position		      [940, 140, 1030, 170]
-      Decimation	      "1"
-      Lockdown		      off
-    }
-    Block {
-      BlockType		      Integrator
-      Name		      "Integrator"
-      SID		      4
+      BlockType		      SubSystem
+      Name		      "Subsystem"
+      SID		      88
       Ports		      [1, 1]
-      Position		      [640, 165, 670, 195]
-      InitialCondition	      "1.6"
-    }
-    Block {
-      BlockType		      MATLABFcn
-      Name		      "MATLAB Fcn"
-      SID		      1
-      Ports		      [1, 1]
-      Position		      [475, 165, 535, 195]
-      MATLABFcn		      "Gs10"
-    }
-    Block {
-      BlockType		      MATLABFcn
-      Name		      "MATLAB Fcn1"
-      SID		      23
-      Ports		      [1, 1]
-      Position		      [830, 140, 890, 170]
-      MATLABFcn		      "Gs10a"
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "MPC Controller"
-      SID		      25
-      Ports		      [3, 1]
-      Position		      [295, 305, 410, 395]
-      BlockMirror	      on
-      LibraryVersion	      "1.340"
-      SourceBlock	      "mpclib/MPC Controller"
-      SourceType	      "MPC"
-      ShowPortLabels	      "FromPortIcon"
-      SystemSampleTime	      "-1"
+      Position		      [665, 340, 705, 400]
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
       FunctionWithSeparateData off
-      RTWMemSecFuncInitTerm   "Inherit from model"
-      RTWMemSecFuncExecute    "Inherit from model"
-      RTWMemSecDataConstants  "Inherit from model"
-      RTWMemSecDataInternal   "Inherit from model"
-      RTWMemSecDataParameters "Inherit from model"
-      mpcobj		      "MPC1"
-      n_mv		      "1"
-      x0		      "[]"
-      ref_from_ws	      off
-      ref_signal_name	      "[]"
-      ref_preview	      on
-      md_from_ws	      off
-      md_signal_name	      "[]"
-      md_preview	      on
-      from_project	      off
-      md_inport		      on
-      mv_inport		      off
-      lims_inport	      off
-      switch_inport	      off
-      enable_value	      "0"
-      project_file	      "MPCtask.mat"
-      is_multiple	      "0"
-    }
-    Block {
-      BlockType		      Mux
-      Name		      "Mux"
-      SID		      5
-      Ports		      [2, 1]
-      Position		      [430, 161, 435, 199]
-      ShowName		      off
-      Inputs		      "2"
-      DisplayOption	      "bar"
-    }
-    Block {
-      BlockType		      Scope
-      Name		      "Scope1"
-      SID		      9
-      Ports		      [1]
-      Position		      [720, 209, 750, 241]
-      Floating		      off
-      Location		      [5, 49, 1371, 727]
-      Open		      off
-      NumInputPorts	      "1"
-      List {
-	ListType		AxesTitles
-	axes1			"%<SignalLabel>"
-      }
-      TimeRange		      "10"
-      YMax		      "70"
-      SaveName		      "ScopeData1"
-      DataFormat	      "StructureWithTime"
-      SampleTime	      "0"
-    }
-    Line {
-      SrcBlock		      "Integrator"
-      SrcPort		      1
-      Points		      [5, 0]
-      Branch {
-	Points			[0, 45]
-	Branch {
-	  Points		  [-265, 0]
-	  DstBlock		  "Mux"
-	  DstPort		  2
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"Subsystem"
+	Location		[82, 193, 1352, 716]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"usletter"
+	PaperUnits		"inches"
+	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "U"
+	  SID			  89
+	  Position		  [90, 298, 120, 312]
+	  IconDisplay		  "Port number"
 	}
-	Branch {
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant"
+	  SID			  54
+	  Position		  [120, 170, 150, 200]
+	  Value			  "3600"
+	  OutDataType		  "fixdt(1, 16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant1"
+	  SID			  78
+	  Position		  [25, 40, 55, 70]
+	  Value			  "0.019"
+	  OutDataType		  "fixdt(1, 16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant2"
+	  SID			  56
+	  Position		  [25, 170, 55, 200]
+	  Value			  "0.25"
+	  OutDataType		  "fixdt(1, 16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant3"
+	  SID			  61
+	  Position		  [40, 335, 70, 365]
+	  Value			  "2.329"
+	  OutDataType		  "fixdt(1, 16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  SID			  30
+	  Ports			  [1, 2]
+	  Position		  [500, 131, 505, 169]
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  SID			  41
+	  Ports			  [1, 2]
+	  Position		  [1045, 236, 1050, 274]
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux2"
+	  SID			  74
+	  Ports			  [1, 2]
+	  Position		  [730, 436, 735, 474]
+	  ShowName		  off
+	  Outputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Display
+	  Name			  "Display"
+	  SID			  24
+	  Ports			  [1]
+	  Position		  [725, 35, 815, 65]
+	  Decimation		  "1"
+	  Lockdown		  off
+	}
+	Block {
+	  BlockType		  Display
+	  Name			  "Display1"
+	  SID			  38
+	  Ports			  [1]
+	  Position		  [770, 145, 860, 175]
+	  Decimation		  "1"
+	  Lockdown		  off
+	}
+	Block {
+	  BlockType		  Display
+	  Name			  "Display2"
+	  SID			  42
+	  Ports			  [1]
+	  Position		  [1155, 145, 1245, 175]
+	  Decimation		  "1"
+	  Lockdown		  off
+	}
+	Block {
+	  BlockType		  Display
+	  Name			  "Display3"
+	  SID			  62
+	  Ports			  [1]
+	  Position		  [435, 25, 525, 55]
+	  Decimation		  "1"
+	  Lockdown		  off
+	}
+	Block {
+	  BlockType		  Display
+	  Name			  "Display4"
+	  SID			  69
+	  Ports			  [1]
+	  Position		  [380, 435, 470, 465]
+	  Decimation		  "1"
+	  Lockdown		  off
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator"
+	  SID			  4
+	  Ports			  [1, 1]
+	  Position		  [565, 135, 595, 165]
+	  InitialCondition	  "1.6"
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator1"
+	  SID			  43
+	  Ports			  [1, 1]
+	  Position		  [1100, 265, 1130, 295]
+	  InitialCondition	  "1.6"
+	}
+	Block {
+	  BlockType		  MATLABFcn
+	  Name			  "MATLAB Fcn"
+	  SID			  1
+	  Ports			  [1, 1]
+	  Position		  [395, 135, 455, 165]
+	  MATLABFcn		  "Gs10"
+	}
+	Block {
+	  BlockType		  MATLABFcn
+	  Name			  "MATLAB Fcn1"
+	  SID			  40
+	  Ports			  [1, 1]
+	  Position		  [915, 240, 975, 270]
+	  MATLABFcn		  "Gs9"
+	}
+	Block {
+	  BlockType		  MATLABFcn
+	  Name			  "MATLAB Fcn2"
+	  SID			  68
+	  Ports			  [1, 1]
+	  Position		  [245, 435, 305, 465]
+	  MATLABFcn		  "Alfa"
+	}
+	Block {
+	  BlockType		  MATLABFcn
+	  Name			  "MATLAB Fcn3"
+	  SID			  70
+	  Ports			  [1, 1]
+	  Position		  [625, 440, 685, 470]
+	  MATLABFcn		  "Voluumen"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  SID			  5
+	  Ports			  [5, 1]
+	  Position		  [350, 132, 355, 188]
+	  ShowName		  off
+	  Inputs		  "5"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  SID			  34
+	  Ports			  [3, 1]
+	  Position		  [605, 216, 610, 254]
+	  ShowName		  off
+	  Inputs		  "3"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux2"
+	  SID			  39
+	  Ports			  [6, 1]
+	  Position		  [880, 238, 885, 292]
+	  ShowName		  off
+	  Inputs		  "6"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux3"
+	  SID			  45
+	  Ports			  [2, 1]
+	  Position		  [1125, 351, 1130, 389]
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux4"
+	  SID			  71
+	  Ports			  [2, 1]
+	  Position		  [565, 436, 570, 474]
+	  ShowName		  off
+	  Inputs		  "2"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "Product"
+	  SID			  59
+	  Ports			  [5, 1]
+	  Position		  [200, 249, 240, 331]
+	  Inputs		  "5"
+	  InputSameDT		  off
+	  OutDataTypeMode	  "Inherit via internal rule"
+	  OutDataType		  "fixdt(1, 16)"
+	  OutScaling		  "2^0"
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "Scope1"
+	  SID			  9
+	  Ports			  [1]
+	  Position		  [685, 219, 715, 251]
+	  Floating		  off
+	  Location		  [5, 49, 1367, 727]
+	  Open			  off
+	  NumInputPorts		  "1"
+	  ZoomMode		  "yonly"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  TimeRange		  "10"
+	  YMax			  "70"
+	  SaveName		  "ScopeData1"
+	  DataFormat		  "StructureWithTime"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "Scope2"
+	  SID			  44
+	  Ports			  [1]
+	  Position		  [1200, 309, 1230, 341]
+	  Floating		  off
+	  Location		  [5, 49, 1367, 727]
+	  Open			  off
+	  NumInputPorts		  "1"
+	  ZoomMode		  "yonly"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  TimeRange		  "100"
+	  YMin			  "0"
+	  YMax			  "25"
+	  DataFormat		  "StructureWithTime"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out1"
+	  SID			  91
+	  Position		  [1200, 258, 1230, 272]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "fixdt(1, 16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "Integrator"
+	  SrcPort		  1
+	  Points		  [0, 10]
+	  Branch {
+	    Points		    [0, 35; -5, 0]
+	    Branch {
+	      Points		      [-260, 0]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	    Branch {
+	      Points		      [-5, 0]
+	      DstBlock		      "Mux1"
+	      DstPort		      1
+	    }
+	  }
+	  Branch {
+	    Points		    [140, 0]
+	    Branch {
+	      DstBlock		      "Display1"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, 90]
+	      DstBlock		      "Mux2"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  Points		  [0, -10]
+	  DstBlock		  "MATLAB Fcn"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "MATLAB Fcn"
+	  SrcPort		  1
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  Points		  [15, 0; 0, -10]
+	  DstBlock		  "Integrator"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  Points		  [40, 0; 0, -90; 45, 0]
+	  Branch {
+	    DstBlock		    "Display"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [-45, 0; 0, 155; 40, 0]
+	    Branch {
+	      DstBlock		      "Mux1"
+	      DstPort		      2
+	    }
+	    Branch {
+	      Points		      [0, 5; 275, 0]
+	      DstBlock		      "Mux2"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
 	  DstBlock		  "Scope1"
 	  DstPort		  1
 	}
-	Branch {
-	  Points		  [0, 95]
-	  DstBlock		  "MPC Controller"
+	Line {
+	  SrcBlock		  "Mux2"
+	  SrcPort		  1
+	  Points		  [0, -10]
+	  DstBlock		  "MATLAB Fcn1"
 	  DstPort		  1
 	}
+	Line {
+	  SrcBlock		  "MATLAB Fcn1"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, -10; 15, 0]
+	  Branch {
+	    Points		    [55, 0]
+	    DstBlock		    "Display2"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 145]
+	    DstBlock		    "Mux3"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  Points		  [15, 0; 0, 15]
+	  DstBlock		  "Integrator1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Integrator1"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, 5]
+	  Branch {
+	    Points		    [0, 30; -45, 0; 0, 10]
+	    Branch {
+	      Points		      [0, 35]
+	      DstBlock		      "Mux3"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [-235, 0]
+	      DstBlock		      "Mux2"
+	      DstPort		      3
+	    }
+	  }
+	  Branch {
+	    Points		    [0, -20]
+	    DstBlock		    "Out1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux3"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, -45]
+	  DstBlock		  "Scope2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Product"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, -45; 15, 0; 0, -75; 5, 0]
+	  Branch {
+	    Points		    [25, 0]
+	    Branch {
+	      Points		      [0, -30]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, 75]
+	      DstBlock		      "Mux1"
+	      DstPort		      3
+	    }
+	  }
+	  Branch {
+	    Points		    [15, 0; 0, -130]
+	    DstBlock		    "Display3"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Constant"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 75]
+	  DstBlock		  "Product"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Constant2"
+	  SrcPort		  1
+	  Points		  [-15, 0; 0, 110; 125, 0; 0, -5]
+	  DstBlock		  "Product"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Constant3"
+	  SrcPort		  1
+	  Points		  [110, 0]
+	  DstBlock		  "Product"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "MATLAB Fcn2"
+	  SrcPort		  1
+	  Points		  [45, 0]
+	  Branch {
+	    DstBlock		    "Display4"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 45; 195, 0]
+	    DstBlock		    "Mux4"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux4"
+	  SrcPort		  1
+	  DstBlock		  "MATLAB Fcn3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "MATLAB Fcn3"
+	  SrcPort		  1
+	  DstBlock		  "Demux2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  1
+	  Points		  [0, -95; -405, 0]
+	  DstBlock		  "Mux"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "Demux2"
+	  SrcPort		  2
+	  Points		  [85, 0; 0, -175]
+	  DstBlock		  "Mux2"
+	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "Constant1"
+	  SrcPort		  1
+	  Points		  [0, 95; 25, 0]
+	  Branch {
+	    Points		    [5, 0; 0, 125]
+	    DstBlock		    "Product"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [0, -20; 75, 0; 0, 5]
+	    Branch {
+	      Points		      [105, 0]
+	      Branch {
+		Points			[70, 0]
+		DstBlock		"Mux"
+		DstPort			4
+	      }
+	      Branch {
+		Points			[0, 160; 600, 0]
+		DstBlock		"Mux2"
+		DstPort			5
+	      }
+	    }
+	    Branch {
+	      Points		      [0, 315; 50, 0]
+	      Branch {
+		DstBlock		"MATLAB Fcn2"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, -45; 340, 0]
+		DstBlock		"Mux4"
+		DstPort			1
+	      }
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "U"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    Points		    [0, -145; 105, 0]
+	    Branch {
+	      Points		      [0, 110]
+	      DstBlock		      "Mux2"
+	      DstPort		      4
+	    }
+	    Branch {
+	      DstBlock		      "Mux"
+	      DstPort		      3
+	    }
+	  }
+	  Branch {
+	    DstBlock		    "Product"
+	    DstPort		    4
+	  }
+	}
       }
-      Branch {
-	Points			[0, -25]
-	DstBlock		"MATLAB Fcn1"
-	DstPort			1
-      }
     }
     Line {
-      SrcBlock		      "Mux"
-      SrcPort		      1
-      DstBlock		      "MATLAB Fcn"
+      Labels		      [0, 0]
+      Points		      [570, 370]
+      DstBlock		      "Subsystem"
       DstPort		      1
     }
     Line {
-      SrcBlock		      "MATLAB Fcn"
+      SrcBlock		      "Subsystem"
       SrcPort		      1
-      DstBlock		      "Integrator"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "MPC Controller"
-      SrcPort		      1
-      Points		      [0, -225; 115, 0; 0, 45]
-      DstBlock		      "Mux"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "MATLAB Fcn1"
-      SrcPort		      1
-      DstBlock		      "Display"
-      DstPort		      1
+      Points		      [0, -65; -275, 0; 0, 35; 10, 0]
     }
     Line {
       SrcBlock		      "Constant"
       SrcPort		      1
-      Points		      [10, 0; 0, -110]
-      DstBlock		      "MPC Controller"
-      DstPort		      2
+      Points		      [-135, 0]
+    }
+    Annotation {
+      Position		      [683, 378]
     }
   }
 }

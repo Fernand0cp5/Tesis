@@ -1,7 +1,7 @@
 %function [ RESPUESTA ] = CHANCADO_HPGR( x )
 %MECANISMO DE RUPTURA 2 Y 3: CHANCADO POR EFECTO DE BORDE Y CHANCADO POR COMPRESION DE CAPAS DE PARTICULAS
 %CHANCADO DEFINIDO ENTRE EL ANGULO ALFAIP Y 0
-NB = 5; %N° de bloques del perfil de presión entre rodillos
+NB = 1; %N° de bloques del perfil de presión entre rodillos
 n = 13; %N° de tamaños de clases
 %Variables de entrada:
 Gs = 26.6834; %Capacidad de tratamiento: Gs en [ton/hora]

@@ -8,7 +8,7 @@ load('Xt.mat','Xt');
 % L=evalin('base','L');
 % P=evalin('base','P');
 % Xt=evalin('base','Xt');
-NB = 31; %N° de bloques del perfil de presión entre rodillos
+NB = 1; %N° de bloques del perfil de presión entre rodillos
 %Introducción de factor geométrico, yk:
 for k = 1:NB,
     y(k) = (L/(2*NB))*((2*k)-NB-1); %Punto medio de cada bloque k
@@ -24,9 +24,9 @@ Ppb
 %Función selección (HERBST AND FUERSTENAU) para determinar la velocidad
 %específica de fractura por tamaño de mineral
 %Parámetros del modelo: fabricante M1 y litología Porfídica.
-S1E = 0.332;
+S1E = 0.75;
 Z1 = -1.23;
-Z2 = -0.62;
+Z2 = -0.2;
 %Variables de entrada:
 %Tamaños de clases: X(i) en [mm]
 X(1) = Xt(1); %tamaño 45.000 [mm]
@@ -57,9 +57,9 @@ for i=1:n,
     SiE(i) = exp(A(i))*S1E %SiE en [ton/kWh]
 end
 %INTRODUCCION DE LA FUNCION RUPTURA:
-alfa1 = 0.261;
+alfa1 = 0.15;
 alfa2 = 0.21;
-alfa3 = 1.306;
+alfa3 = 5.96;
 %Variables de entrada:
 %Función de la distribucion de fractura primaria B(i)
 %B(i): fracción en peso retenida acumulada

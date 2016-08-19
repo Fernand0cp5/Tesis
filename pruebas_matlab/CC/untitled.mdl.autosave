@@ -18,12 +18,12 @@ Model {
   MinMaxOverflowLogging	  "UseLocalSettings"
   MinMaxOverflowArchiveMode "Overwrite"
   MaxMDLFileLineLength	  120
-  Created		  "Fri Jul 15 13:09:38 2016"
+  Created		  "Thu Jul 28 12:29:56 2016"
   Creator		  "Fer"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
   ModifiedDateFormat	  "%<Auto>"
-  RTWModifiedTimeStamp	  390489401
+  RTWModifiedTimeStamp	  391611414
   ModelVersionFormat	  "1.%<AutoIncrement: 0 >"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
@@ -107,7 +107,7 @@ Model {
 	  $ObjectID		  2
 	  Version		  "1.10.0"
 	  StartTime		  "0.0"
-	  StopTime		  "1"
+	  StopTime		  "10.0"
 	  AbsTol		  "auto"
 	  FixedStep		  "auto"
 	  InitialStep		  "auto"
@@ -598,10 +598,6 @@ Model {
   }
   BlockParameterDefaults {
     Block {
-      BlockType		      Clock
-      DisplayTime	      off
-    }
-    Block {
       BlockType		      Constant
       Value		      "1"
       VectorParams1D	      on
@@ -617,6 +613,12 @@ Model {
       SampleTime	      "inf"
       FramePeriod	      "inf"
       PreserveConstantTs      off
+    }
+    Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
     }
     Block {
       BlockType		      Display
@@ -658,20 +660,13 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    6
-    Block {
-      BlockType		      Clock
-      Name		      "Clock"
-      SID		      3
-      Position		      [120, 35, 140, 55]
-      Decimation	      "10"
-    }
+    SIDHighWatermark	    27
     Block {
       BlockType		      Constant
       Name		      "Constant"
       SID		      1
-      Position		      [120, 85, 150, 115]
-      Value		      "[1 2 3 4]"
+      Position		      [390, 110, 420, 140]
+      Value		      "0.8"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
     }
@@ -679,70 +674,230 @@ Model {
       BlockType		      Constant
       Name		      "Constant1"
       SID		      2
-      Position		      [120, 140, 150, 170]
-      Value		      "[5 6 7 8]"
+      Position		      [390, 165, 420, 195]
+      Value		      "0.25"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
     }
     Block {
+      BlockType		      Constant
+      Name		      "Constant2"
+      SID		      3
+      Position		      [390, 215, 420, 245]
+      Value		      "0.019"
+      OutDataType	      "fixdt(1, 16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant3"
+      SID		      4
+      Position		      [390, 270, 420, 300]
+      Value		      "0.67"
+      OutDataType	      "fixdt(1, 16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant4"
+      SID		      5
+      Position		      [390, 325, 420, 355]
+      Value		      "41"
+      OutDataType	      "fixdt(1, 16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant5"
+      SID		      6
+      Position		      [390, 380, 420, 410]
+      Value		      "2.74"
+      OutDataType	      "fixdt(1, 16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "Constant6"
+      SID		      7
+      Position		      [390, 430, 420, 460]
+      Value		      "1.62"
+      OutDataType	      "fixdt(1, 16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Demux
+      Name		      "Demux"
+      SID		      13
+      Ports		      [1, 3]
+      Position		      [725, 251, 730, 289]
+      ShowName		      off
+      Outputs		      "3"
+      DisplayOption	      "bar"
+    }
+    Block {
       BlockType		      Display
       Name		      "Display"
-      SID		      6
+      SID		      14
       Ports		      [1]
-      Position		      [445, 115, 550, 255]
+      Position		      [900, 130, 990, 160]
+      Decimation	      "1"
+      Lockdown		      off
+    }
+    Block {
+      BlockType		      Display
+      Name		      "Display1"
+      SID		      15
+      Ports		      [1]
+      Position		      [890, 280, 980, 310]
+      Decimation	      "1"
+      Lockdown		      off
+    }
+    Block {
+      BlockType		      Display
+      Name		      "Display2"
+      SID		      26
+      Ports		      [1]
+      Position		      [890, 380, 980, 410]
       Decimation	      "1"
       Lockdown		      off
     }
     Block {
       BlockType		      MATLABFcn
       Name		      "MATLAB Fcn"
-      SID		      5
+      SID		      12
       Ports		      [1, 1]
-      Position		      [310, 115, 370, 145]
-      MATLABFcn		      "Clock"
+      Position		      [605, 255, 665, 285]
+      MATLABFcn		      "Lineales"
+    }
+    Block {
+      BlockType		      MATLABFcn
+      Name		      "MATLAB Fcn1"
+      SID		      20
+      Ports		      [1, 1]
+      Position		      [775, 380, 835, 410]
+      MATLABFcn		      "Voluumen"
     }
     Block {
       BlockType		      Mux
       Name		      "Mux"
-      SID		      4
-      Ports		      [3, 1]
-      Position		      [255, 66, 260, 194]
+      SID		      11
+      Ports		      [7, 1]
+      Position		      [530, 161, 535, 379]
       ShowName		      off
-      Inputs		      "3"
+      Inputs		      "7"
       DisplayOption	      "bar"
     }
-    Line {
-      SrcBlock		      "Clock"
-      SrcPort		      1
-      Points		      [45, 0; 0, 45]
-      DstBlock		      "Mux"
-      DstPort		      1
+    Block {
+      BlockType		      Mux
+      Name		      "Mux1"
+      SID		      18
+      Ports		      [2, 1]
+      Position		      [735, 376, 740, 414]
+      ShowName		      off
+      Inputs		      "2"
+      DisplayOption	      "bar"
     }
     Line {
       SrcBlock		      "Constant"
       SrcPort		      1
-      Points		      [40, 0; 0, 30]
+      Points		      [45, 0; 0, 55]
       DstBlock		      "Mux"
-      DstPort		      2
+      DstPort		      1
     }
     Line {
       SrcBlock		      "Constant1"
       SrcPort		      1
-      Points		      [40, 0; 0, 15]
+      Points		      [35, 0; 0, 30]
+      DstBlock		      "Mux"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Constant2"
+      SrcPort		      1
+      Points		      [45, 0; 0, 10]
       DstBlock		      "Mux"
       DstPort		      3
     }
     Line {
+      SrcBlock		      "Constant3"
+      SrcPort		      1
+      Points		      [45, 0; 0, -15]
+      DstBlock		      "Mux"
+      DstPort		      4
+    }
+    Line {
+      SrcBlock		      "Constant4"
+      SrcPort		      1
+      Points		      [45, 0; 0, -40]
+      DstBlock		      "Mux"
+      DstPort		      5
+    }
+    Line {
+      SrcBlock		      "Constant5"
+      SrcPort		      1
+      Points		      [65, 0; 0, -65]
+      DstBlock		      "Mux"
+      DstPort		      6
+    }
+    Line {
+      SrcBlock		      "Constant6"
+      SrcPort		      1
+      Points		      [90, 0]
+      DstBlock		      "Mux"
+      DstPort		      7
+    }
+    Line {
       SrcBlock		      "Mux"
       SrcPort		      1
-      DstBlock		      "MATLAB Fcn"
-      DstPort		      1
+      Points		      [20, 0]
+      Branch {
+	DstBlock		"MATLAB Fcn"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 115]
+	DstBlock		"Mux1"
+	DstPort			1
+      }
     }
     Line {
       SrcBlock		      "MATLAB Fcn"
       SrcPort		      1
-      Points		      [55, 0]
+      DstBlock		      "Demux"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Demux"
+      SrcPort		      1
+      Points		      [150, 0]
       DstBlock		      "Display"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Demux"
+      SrcPort		      3
+      Points		      [10, 0; 0, 30]
+      Branch {
+	Points			[0, -15]
+	DstBlock		"Display1"
+	DstPort			1
+      }
+      Branch {
+	Points			[-25, 0]
+	DstBlock		"Mux1"
+	DstPort			2
+      }
+    }
+    Line {
+      SrcBlock		      "Mux1"
+      SrcPort		      1
+      DstBlock		      "MATLAB Fcn1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "MATLAB Fcn1"
+      SrcPort		      1
+      DstBlock		      "Display2"
       DstPort		      1
     }
   }

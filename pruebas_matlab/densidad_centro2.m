@@ -1,7 +1,6 @@
-function [ RES ] = densidad_centro2 (alfaIP, D, s0, roe, roa, U, L)
 %Variables de entrada
 syms x
-alfaIP = alfaIP*pi/180;
+alfaIP = 8.4150*pi/180;
 a = 0;
 b = 0.01;
 c = 0.02;
@@ -55,8 +54,7 @@ Gs2 = 3600*den2*A2*v2;
 Gs3 = 3600*den3*A3*v3;
 Gs4 = 3600*den4*A4*v4;
 Gs5 = 3600*den5*A5*v5;
-[ RES ] = [den1 den2 den3 den4 den5 alfa1 alfa2 alfa3 alfa4 alfa5 cen1 cen2 cen3 cen4 cen5 Gs1 Gs2 Gs3 Gs4 Gs5];
-end
+[ RES ] = [den1 den2 den3 den4 den5 alfa1 alfa2 alfa3 alfa4 alfa5 cen1 cen2 cen3 cen4 cen5 Gs1 Gs2 Gs3 Gs4 Gs5]
 
 
 %densidad_centro (alfaIP, D, s0, roe, roa, U, L)

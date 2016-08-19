@@ -4,7 +4,7 @@ syms x
 D=Entrada(1);
 L=Entrada(2);
 s0=Entrada(3);
-h=Entrada(7);
+h=Entrada(8);
 a = 0;
 bb = h;
 c = 2*h;

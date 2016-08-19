@@ -1,6 +1,6 @@
 function rodillogeneralok3
 valoresiniciales=[1.6;1.6;1.6;1.6;1.6;1.6;1.6;1.6;1.6;1.6];
-[t,d]=ode1(@rodos,0,60, valoresiniciales,0.1);
+[t,d]=ode1(@rodos,0,30, valoresiniciales,0.1);
 t
 d(1:600,1:10)
 figure(1)
@@ -60,7 +60,6 @@ for i = 1:n;
         S10(i,k) = (Ppb(k)/Hkb10)*SiE(i)/3600; %S(i,k) en [1/s]
     end
 end
-
 %Variables de entrada para modelar la Matriz de REID:
 %Valores de partida
 A10(1,1) = fipHPGR(1);
@@ -150,14 +149,12 @@ A9=L*(s0+D*(1-cos(alfacm9)));
 V9=U*cos(alfacm9);
 Gs9=3600*V9*A9*rocm9;
 Hkb9 = (1/NB)*3600*(A9*V9*rocm9)*h/(3600*U);
-
 %velocidad específica de fractura para cada tamaño en cada bloque: S(i,k)
 for i = 1:n;
     for k = 1:NB;
         S9(i,k) = (Ppb(k)/Hkb9)*SiE(i)/3600; %S(i,k) en [1/s]
     end
 end
-
 %Variables de entrada para modelar la Matriz de REID:
 %Valores de partida
 A9(1,1) = fipHPGR(1);
@@ -253,7 +250,6 @@ for i = 1:n;
         S8(i,k) = (Ppb(k)/Hkb8)*SiE(i)/3600; %S(i,k) en [1/s]
     end
 end
-
 %Variables de entrada para modelar la Matriz de REID:
 %Valores de partida
 A8(1,1) = fipHPGR(1);

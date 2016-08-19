@@ -18,12 +18,12 @@ Model {
   MinMaxOverflowLogging	  "UseLocalSettings"
   MinMaxOverflowArchiveMode "Overwrite"
   MaxMDLFileLineLength	  120
-  Created		  "Thu Jul 07 14:41:04 2016"
+  Created		  "Wed Aug 17 08:48:05 2016"
   Creator		  "Fer"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
   ModifiedDateFormat	  "%<Auto>"
-  RTWModifiedTimeStamp	  389804282
+  RTWModifiedTimeStamp	  393324621
   ModelVersionFormat	  "1.%<AutoIncrement: 0 >"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
@@ -615,13 +615,6 @@ Model {
       PreserveConstantTs      off
     }
     Block {
-      BlockType		      Display
-      Format		      "short"
-      Decimation	      "10"
-      Floating		      off
-      SampleTime	      "-1"
-    }
-    Block {
       BlockType		      MATLABFcn
       MATLABFcn		      "sin"
       OutputDimensions	      "-1"
@@ -629,18 +622,10 @@ Model {
       Output1D		      on
       SampleTime	      "-1"
     }
-    Block {
-      BlockType		      Mux
-      Inputs		      "4"
-      DisplayOption	      "none"
-      UseBusObject	      off
-      BusObject		      "BusObject"
-      NonVirtualBus	      off
-    }
   }
   System {
     Name		    "untitled"
-    Location		    [2, 75, 1347, 707]
+    Location		    [804, 387, 1340, 675]
     Open		    on
     ModelBrowserVisibility  off
     ModelBrowserWidth	    200
@@ -654,240 +639,28 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    19
+    SIDHighWatermark	    2
     Block {
       BlockType		      Constant
       Name		      "Constant"
-      SID		      17
-      Position		      [355, 450, 385, 480]
-      Value		      "5"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
-    }
-    Block {
-      BlockType		      Constant
-      Name		      "D"
-      SID		      1
-      Position		      [120, 115, 150, 145]
-      Value		      "0.8"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
-    }
-    Block {
-      BlockType		      Display
-      Name		      "Display"
-      SID		      19
-      Ports		      [1]
-      Position		      [620, 34, 730, 636]
-      Decimation	      "1"
-      Lockdown		      off
-    }
-    Block {
-      BlockType		      Constant
-      Name		      "L"
-      SID		      3
-      Position		      [120, 170, 150, 200]
-      Value		      "0.25"
+      SID		      2
+      Position		      [100, 50, 130, 80]
+      Value		      "26.6834"
       OutDataType	      "fixdt(1, 16)"
       OutScaling	      "2^0"
     }
     Block {
       BlockType		      MATLABFcn
       Name		      "MATLAB Fcn"
-      SID		      14
+      SID		      1
       Ports		      [1, 1]
-      Position		      [340, 310, 400, 340]
-      MATLABFcn		      "Prechancado"
-    }
-    Block {
-      BlockType		      MATLABFcn
-      Name		      "MATLAB Fcn1"
-      SID		      18
-      Ports		      [1, 1]
-      Position		      [515, 320, 575, 350]
-      MATLABFcn		      "Chancado"
-    }
-    Block {
-      BlockType		      Mux
-      Name		      "Mux"
-      SID		      13
-      Ports		      [9, 1]
-      Position		      [260, 156, 265, 494]
-      ShowName		      off
-      Inputs		      "9"
-      DisplayOption	      "bar"
-    }
-    Block {
-      BlockType		      Mux
-      Name		      "Mux1"
-      SID		      16
-      Ports		      [3, 1]
-      Position		      [440, 316, 445, 354]
-      ShowName		      off
-      Inputs		      "3"
-      DisplayOption	      "bar"
-    }
-    Block {
-      BlockType		      Constant
-      Name		      "Rp"
-      SID		      6
-      Position		      [120, 325, 150, 355]
-      Value		      "41"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
-    }
-    Block {
-      BlockType		      Constant
-      Name		      "U"
-      SID		      5
-      Position		      [120, 275, 150, 305]
-      Value		      "0.67"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
-    }
-    Block {
-      BlockType		      Constant
-      Name		      "faHPGR"
-      SID		      11
-      Position		      [120, 555, 150, 585]
-      Value		      "[0.0174 0.2948 0.2654 0.1315 0.1315 0.07746 0.6721 0.07007 0.02725 0.01154 0.0088 0.0085 0.0258]"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
-    }
-    Block {
-      BlockType		      Constant
-      Name		      "n"
-      SID		      10
-      Position		      [120, 490, 150, 520]
-      Value		      "13"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
-    }
-    Block {
-      BlockType		      Constant
-      Name		      "roa"
-      SID		      8
-      Position		      [120, 435, 150, 465]
-      Value		      "1.62"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
-    }
-    Block {
-      BlockType		      Constant
-      Name		      "ros"
-      SID		      7
-      Position		      [120, 380, 150, 410]
-      Value		      "2.74"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
-    }
-    Block {
-      BlockType		      Constant
-      Name		      "s0"
-      SID		      4
-      Position		      [120, 220, 150, 250]
-      Value		      "0.019"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
-    }
-    Line {
-      SrcBlock		      "D"
-      SrcPort		      1
-      Points		      [45, 0; 0, 55]
-      DstBlock		      "Mux"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "L"
-      SrcPort		      1
-      Points		      [35, 0; 0, 35; 45, 0]
-      Branch {
-	DstBlock		"Mux"
-	DstPort			2
-      }
-      Branch {
-	Points			[0, -80; 190, 0]
-	DstBlock		"Mux1"
-	DstPort			2
-      }
-    }
-    Line {
-      SrcBlock		      "s0"
-      SrcPort		      1
-      Points		      [45, 0; 0, 20]
-      DstBlock		      "Mux"
-      DstPort		      3
-    }
-    Line {
-      SrcBlock		      "U"
-      SrcPort		      1
-      DstBlock		      "Mux"
-      DstPort		      4
-    }
-    Line {
-      SrcBlock		      "Rp"
-      SrcPort		      1
-      Points		      [45, 0; 0, -15]
-      DstBlock		      "Mux"
-      DstPort		      5
-    }
-    Line {
-      SrcBlock		      "ros"
-      SrcPort		      1
-      Points		      [45, 0; 0, -35]
-      DstBlock		      "Mux"
-      DstPort		      6
-    }
-    Line {
-      SrcBlock		      "roa"
-      SrcPort		      1
-      Points		      [55, 0; 0, -55]
-      DstBlock		      "Mux"
-      DstPort		      7
-    }
-    Line {
-      SrcBlock		      "n"
-      SrcPort		      1
-      Points		      [65, 0; 0, -75]
-      DstBlock		      "Mux"
-      DstPort		      8
-    }
-    Line {
-      SrcBlock		      "faHPGR"
-      SrcPort		      1
-      Points		      [90, 0]
-      DstBlock		      "Mux"
-      DstPort		      9
-    }
-    Line {
-      SrcBlock		      "MATLAB Fcn"
-      SrcPort		      1
-      DstBlock		      "Mux1"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Mux"
-      SrcPort		      1
-      DstBlock		      "MATLAB Fcn"
-      DstPort		      1
+      Position		      [205, 50, 265, 80]
+      MATLABFcn		      "parametros"
     }
     Line {
       SrcBlock		      "Constant"
       SrcPort		      1
-      Points		      [15, 0; 0, -120]
-      DstBlock		      "Mux1"
-      DstPort		      3
-    }
-    Line {
-      SrcBlock		      "Mux1"
-      SrcPort		      1
-      DstBlock		      "MATLAB Fcn1"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "MATLAB Fcn1"
-      SrcPort		      1
-      DstBlock		      "Display"
+      DstBlock		      "MATLAB Fcn"
       DstPort		      1
     }
   }

@@ -14,4 +14,3 @@ Gs10=3600*V10*A10*rocm10;
 rocm10= (Gs11-Gs10)/vol10;
 Salida=[Gs10,rocm10]; 
 end
-

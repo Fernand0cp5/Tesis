@@ -1,6 +1,6 @@
 function flujoosok
 valoresiniciales=[1.6;1.6;1.6;1.6;1.6;1.6;1.6;1.6;1.6;1.6];
-[t,d]=ode1(@rodos,0,60, valoresiniciales,0.1);
+[t,d]=ode1(@rodos,0,100, valoresiniciales,0.1);
 t
 d(1:600,1:10)
 figure(1)
@@ -26,7 +26,7 @@ load('s0.mat','s0');
 load('D.mat','D');
 load('U.mat','U');
 load('roa.mat','roa');
-load('Gs11.mat','Gs11');
+%load('Gs11.mat','Gs11');
 rocm10=vectorvariablesdep(1);
 rocm9=vectorvariablesdep(2);
 rocm8=vectorvariablesdep(3);
@@ -38,6 +38,7 @@ rocm3=vectorvariablesdep(8);
 rocm2=vectorvariablesdep(9);
 rocm1=vectorvariablesdep(10);
 
+Gs11=3600*rocm1*s0*L*U;
 alfacm10=acos((roa*(D+s0)-rocm10*s0)/(roa*D));
 A10=L*(s0+D*(1-cos(alfacm10)));
 V10=U*cos(alfacm10);
@@ -87,6 +88,7 @@ alfacm1=acos((rocm2*(D+s0)-rocm1*s0)/(rocm2*D));
 A1=L*(s0+D*(1-cos(alfacm1)));
 V1=U*cos(alfacm1);
 Gs1=3600*V1*A1*rocm1;
+
 
 drocm10dt= (Gs11-Gs10)/vol10;
 drocm9dt= (Gs10-Gs9)/vol9;

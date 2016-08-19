@@ -21,8 +21,15 @@ faHPGR(11) = Entrada(19);%fracción retenido discreto, tamaño 0.315 [mm]
 faHPGR(12) = Entrada(20);%fracción retenido discreto, tamaño 0.200 [mm]
 faHPGR(13) = Entrada(21);%fracción retenido discreto, tamaño 0.125 [mm]
 roe = 0.85*ros; %Densidad aparente enc zona de extrusión: roe en [t/m3]
+Gs11 = 3600*roe*s0*L*U; % Tonalaje tratado: Gs en [ton/hora]
+F = 100*Rp*L*D/2; %Fuerza de molienda: F en [kN]
 %Angulo de compresión zona de capas de partículas: alfaIP en [°]
 alfaIP = acos((1/(2*D))*((s0+D)+sqrt(((s0+D)^2)-(4*s0*roe*D/roa))))*180/pi;
+%Altura de cada bloque (horizontal)
+h = (D/2*sin(alfaIP*pi/180))/10;
+%Altura de la zona de chancado
+Z = (D/2)*sin(alfaIP*pi/180);
+P = 2*F*U*sin((alfaIP/2)*(pi/180));
 Xc = (s0 + D*(1-cos(alfaIP*pi/180)))*1000; %Tamaño crítico: Xc en [mm]
 %Tamaños de clases de partícula: X(i) en [mm] (13 mallas)
 X(1) = 45; %tamaño 45.000 [mm]
@@ -106,5 +113,6 @@ if X(1) > Xc,
 else
     fipHPGR = faHPGR; %Alimentación directa a la zona de chancado cuando es X(i) < a Xc
 end
+ Xt = X;
 Salida=[fipHPGR];
 end
