@@ -16,7 +16,7 @@ alfaIP = acos((1/(2*D))*((s0+D)+sqrt(((s0+D)^2)-(4*s0*roe*D/roa))))*180/pi
 h = (D/2*sin(alfaIP*pi/180))/1
 %Altura de la zona de chancado
 Z = (D/2)*sin(alfaIP*pi/180)
-P = 2*F*U*sin((alfaIP/2)*(pi/180));
+P = 2*F*U*sin((alfaIP/2)*(pi/180))%[kW]
 Xc = (s0 + D*(1-cos(alfaIP*pi/180)))*1000; %Tamaño crítico: Xc en [mm]
 n = 13;
 faHPGR(1) = 0.0239; %fracción retenido discreto, tamaño 45.000 [mm]

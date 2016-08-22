@@ -13,7 +13,7 @@ F=100*Rp*L*D/2; %Fuerza de molienda: F en [kN]
 alfaIP=acos((1/(2*D))*((s0+D)+sqrt(((s0+D)^2)-(4*s0*roe*D/roa))))*180/pi;
 %Altura de la zona de chancado
 Z=(D/2)*sin(alfaIP*pi/180);
-P=2*F*U*sin((alfaIP/2)*(pi/180));
+P=100*2*F*U*sin((alfaIP/2)*(pi/180));
 Xc = (s0 + D*(1-cos(alfaIP*pi/180)))*1000; %Tamaño crítico: Xc en [mm]
-Salida=[Gs11,alfaIP,Z,P,Xc];
+Salida=[Xc,Gs11,P,Z];
 end

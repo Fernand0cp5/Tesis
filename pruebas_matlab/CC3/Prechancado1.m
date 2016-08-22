@@ -29,10 +29,10 @@ X(11) = 0.315; %tamaño 0.315 [mm]
 X(12) = 0.2; %tamaño 0.200 [mm]
 X(13) = 0.125; %tamaño 0.125 [mm]
 %Algoritmo de Prechancado:
-if X(1) > Xc,
+if X(1) > Xc;
     suma = 0;
     for i=1:n;
-        if X(i) >= Xc,
+        if X(i) >= Xc;
             fspHPGR(i) = faHPGR(i);
             fbpHPGR(i) = 0;
             suma = suma + faHPGR(i);
@@ -62,10 +62,10 @@ if X(1) > Xc,
     for j=1:n;
         suma = 0;
         for i=1:n-1;
-            if i>j,
+            if i>j;
                 b(i,j)=B(i-j+1)-B(i-j+2);
                 suma = suma + b(i,j);
-            else i<=j,
+            else i<=j;
                 b(i,j)=0;
             end
         end
