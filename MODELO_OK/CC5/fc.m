@@ -1,0 +1,19 @@
+function Salida=fc(Entrada)
+xin=Entrada(3);
+Gsin=Entrada(14);
+Gsout=Entrada(15);
+rocm=Entrada(16);
+vol=Entrada(17);
+p(1)=Entrada(18);
+p(2)=Entrada(19);
+P=Entrada(20);
+Hk=rocm*vol;
+k0b=87.7457696248338;
+k0c=141.029744964245;
+Eb=1.40605122040969;
+Ec=1.85185098278557;
+x(1)=k0b*exp(-Eb/P);
+x(2)=k0c*exp(-Ec/P);
+xc=(Gsin*xin-Gsout*p(2)+Hk*p(1)*x(1)*0.7474-Hk*p(2)*x(2))/Hk;
+Salida=xc;
+end

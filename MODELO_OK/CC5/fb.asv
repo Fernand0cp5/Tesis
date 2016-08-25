@@ -1,0 +1,15 @@
+function Salida=fb(Entrada)
+xin=Entrada(2);%2
+Gsin=Entrada(14);%14
+Gsout=Entrada(15);%15
+rocm=Entrada(16);%16
+vol=Entrada(17);%17
+p(1)=Entrada(18);%18
+%P=Entrada(7);%19
+P=40308.7;
+Hk=rocm*vol;
+k0b=87.7457696248338;
+Eb=1.40605122040969;
+x(1)=k0b*exp(-Eb/P);
+xb=(Gsin*xin-Gsout*p(1)-Hk*p(1)*x(1))/Hk;
+Salida=xb;
